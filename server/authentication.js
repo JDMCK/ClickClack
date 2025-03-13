@@ -64,13 +64,13 @@ export async function signup(req, res) {
 
   try {
     const [{ userid }] = await sql`
-      INSERT INTO users (display_name, email, password_hash)
-      VALUES(${req.body.display_name}, ${req.body.email}, ${hash})
+      INSERT INTO users (display_name, email, password_hash, role)
+      VALUES(${req.body.display_name}, ${req.body.email}, ${hash}, 'user')
       RETURNING userid;
     `;
     response.data.userid = userid;
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
-    const token = jwt.sign({ userid }, SECRET_KEY, { expiresIn: "24h" });
+    const token = jwt.sign({userid, is_admin:false}, SECRET_KEY, { expiresIn: "24h" });
     response.message = lang("SignupSuccess");
     res.cookie("token", token, {
       httpOnly: true,
@@ -116,7 +116,7 @@ export async function login(req, res) {
   }
 
   const [user] = await sql`
-    SELECT userid, display_name, password_hash
+    SELECT userid, display_name, password_hash, role
     FROM users
     WHERE email = ${req.body.email};
   `;
@@ -137,8 +137,9 @@ export async function login(req, res) {
   }
 
   response.data.userid = user.userid;
+  response.data.is_admin = user.role == 'admin' ? true : false
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
-  const token = jwt.sign({ userid: user.userid }, SECRET_KEY, { expiresIn: "24h" });
+  const token = jwt.sign({ userid: user.userid, is_admin: user.role }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
   res.cookie("token", token, {
     httpOnly: true,
@@ -154,7 +155,8 @@ export async function isAuthenticated(req, res) {
     result: 0,
     data: {
       loggedin: false,
-      userid: ''
+      userid: '',
+      is_admin: false
     },
     message: '',
     error: '',
@@ -172,9 +174,10 @@ export async function isAuthenticated(req, res) {
 
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
   try {
-    const userid = jwt.verify(token, SECRET_KEY);
+    const { userid, is_admin } = jwt.verify(token, SECRET_KEY);
     response.data.loggedin = true;
     response.data.userid = userid;
+    response.data.is_admin = is_admin
     response.message = lang("LoginUserLoggedIn");
   } catch (error) {
     response.result = 1;
