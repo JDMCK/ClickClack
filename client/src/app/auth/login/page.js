@@ -12,7 +12,7 @@ export default function LoginPage() {
       </form>
 
       <p className="login-signup-text">
-        Don't have an account? <Link href="/auth/signup" className="login-signup-link">Sign up here</Link>
+        Don&apos;t have an account? <Link href="/auth/signup" className="login-signup-link">Sign up here</Link>
       </p>
     </div>
   );
