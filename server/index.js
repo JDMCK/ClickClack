@@ -6,7 +6,7 @@ import * as ai from './ai.js';
 
 
 const app = express();
-const port = 3000;
+const port = 3001;
 const API_PREFIX = "/api/v1";
 
 // -------------------- Middleware --------------------
@@ -25,6 +25,14 @@ app.post(`${API_PREFIX}/auth/signup`, async (req, res) => {
 
 app.post(`${API_PREFIX}/auth/login`, async (req, res) => {
   await auth.login(req, res);
+});
+
+app.get(`${API_PREFIX}/auth/me/`, async (req, res) => {
+  try {
+    await auth.isAuthenticated(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
 });
 
 // -------------------- Test endpoints --------------------
