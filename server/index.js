@@ -27,6 +27,14 @@ app.post(`${API_PREFIX}/auth/login`, async (req, res) => {
   await auth.login(req, res);
 });
 
+app.get(`${API_PREFIX}/auth/me/`, async (req, res) => {
+  try {
+    await auth.isAuthenticated(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
+});
+
 // -------------------- Test endpoints --------------------
 
 // -------------------- AI endpoints --------------------

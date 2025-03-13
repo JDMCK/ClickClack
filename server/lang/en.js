@@ -6,8 +6,11 @@ const languageKeys = {
   "BadRequest": "Bad request.",
   "InternalServerError": "Internal server error has occurred.",
   "LoginUserNotFound": "User account doesn't exist.",
-  "LoginSuccess": "Successfully logged in user .",
-  "LoginPasswordNotMatched": "Faiiled to log in user, incorrect password."
+  "LoginSuccess": "Successfully logged in user.",
+  "LoginPasswordNotMatched": "Failed to log in user, incorrect password.",
+  "LoginUserNotLoggedIn": "User is not logged in.",
+  "LoginUserLoggedIn": "User is logged in.",
+  "LoginNoUserToken": "No user token given.",
 }
 
 export default function lang(key, ...args) {
