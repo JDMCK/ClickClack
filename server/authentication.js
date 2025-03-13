@@ -145,6 +145,7 @@ export async function login(req, res) {
     secure: true, // only send over HTTPS
     maxAge: 86400000 // 24 hours
   });
+  
   res.json(response);
 }
 
