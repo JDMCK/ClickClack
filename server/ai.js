@@ -41,10 +41,6 @@ export async function generateTestPrompt(req, res) {
     difficulty: Joi.string()
       .valid('easy', 'medium', 'hard', 'expert')
       .required(),
-
-    userid: Joi.number()
-      .integer()
-      .required()
   });
   const validation = schema.validate(req.body);
   if (validation.error !== undefined) {
@@ -67,9 +63,10 @@ export async function generateTestPrompt(req, res) {
     // const text = "Here is some text that I wrote myself so we don't waste tokens testing.";
     
     // store prompt in db
+    console.log(req.userid);
     await sql`
-      INSERT INTO prompts (userid, text)
-      VALUES(${req.body.userid}, ${text});
+      INSERT INTO prompts (userid, text, theme, difficulty)
+      VALUES(${req.userid}, ${text}, ${req.body.theme}, ${req.body.difficulty});
     `;
     response.data.text = text;
   } catch (error) {
