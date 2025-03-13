@@ -1,8 +1,8 @@
 import express from 'express'
 import * as auth from './authentication.js'
-import lang from './lang/en.js'
 import bodyParser from 'body-parser'
 import * as ai from './ai.js';
+import lang from './lang/en.js';
 
 
 const app = express();
@@ -20,20 +20,36 @@ app.get('/', (_, res) => {
 
 // -------------------- Auth endpoints --------------------
 app.post(`${API_PREFIX}/auth/signup`, async (req, res) => {
-  await auth.signup(req, res);
+  try {
+    await auth.signup(req, res);
+  } catch (error) {
+    serverError(res, error)
+  }
 });
 
 app.post(`${API_PREFIX}/auth/login`, async (req, res) => {
-  await auth.login(req, res);
+  try {
+    await auth.login(req, res);
+  } catch (error) {
+    serverError(res, error)
+  }
 });
 
 // -------------------- Test endpoints --------------------
 
 // -------------------- AI endpoints --------------------
 app.post(`${API_PREFIX}/ai/generate-test-prompt`, async (req, res) => {
-  await ai.generateTestPrompt(req, res);
+  try {
+    await ai.generateTestPrompt(req, res);
+  } catch (error) {
+    serverError(res, error)
+  }
 });
 
 app.listen(port, () => {
   console.log(`ClickClack API listening on port ${port}...`)
 });
+
+function serverError(res, error) {
+  res.status(500).json({ message: lang("InternalServerError"), error });
+}
