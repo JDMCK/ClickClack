@@ -3,6 +3,7 @@ import * as auth from './authentication.js'
 import bodyParser from 'body-parser'
 import * as ai from './ai.js';
 import lang from './lang/en.js';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
@@ -11,6 +12,7 @@ const API_PREFIX = "/api/v1";
 
 // -------------------- Middleware --------------------
 app.use(bodyParser.json()) // for parsing application/json
+app.use(cookieParser()); // enables reading cookies from `req.cookies`
 
 
 // -------------------- Begin endpoints --------------------
@@ -19,7 +21,7 @@ app.get('/', (_, res) => {
 })
 
 // -------------------- Auth endpoints --------------------
-app.post(`${API_PREFIX}/auth/signup`, async (req, res) => {
+app.post(`${API_PREFIX}/auth/signup/`, async (req, res) => {
   try {
     await auth.signup(req, res);
   } catch (error) {
@@ -27,7 +29,7 @@ app.post(`${API_PREFIX}/auth/signup`, async (req, res) => {
   }
 });
 
-app.post(`${API_PREFIX}/auth/login`, async (req, res) => {
+app.post(`${API_PREFIX}/auth/login/`, async (req, res) => {
   try {
     await auth.login(req, res);
   } catch (error) {
@@ -46,7 +48,7 @@ app.get(`${API_PREFIX}/auth/me/`, async (req, res) => {
 // -------------------- Test endpoints --------------------
 
 // -------------------- AI endpoints --------------------
-app.post(`${API_PREFIX}/ai/generate-test-prompt`, async (req, res) => {
+app.post(`${API_PREFIX}/ai/generate-test-prompt/`, async (req, res) => {
   try {
     await ai.generateTestPrompt(req, res);
   } catch (error) {

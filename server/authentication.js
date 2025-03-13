@@ -160,7 +160,7 @@ export async function isAuthenticated(req, res) {
     error: '',
     received: req.body
   };
-
+  
   const token = req.cookies.token;
 
   if (!token) {
