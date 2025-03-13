@@ -14,9 +14,9 @@ export async function generateTestPrompt(req, res) {
 
   const preamble = `
     You are an assitant to a typing speed test application. I will give you a theme and a difficulty, 
-    and your job is to generate a story based on that theme. The story should around 500 words every 
-    time. Please do not respond with any text other than the story itself. Here is how you should 
-    interpret the difficulty levels:
+    and your job is to generate a story based on that theme. The story should around 350 words Please 
+    do not respond with any text other than the story itself. Here is how you should interpret the 
+    difficulty levels:
 
     easy: the story should contain minimal punctuation, no numbers, and minimal capitalization.
     medium: the story should be structured much like a normal story. Some numbers are fine, only if they make sense.
@@ -40,6 +40,10 @@ export async function generateTestPrompt(req, res) {
     difficulty: Joi.string()
       .valid('easy', 'medium', 'hard', 'expert')
       .required(),
+
+    user_id: Joi.number()
+      .integer()
+      .required()
   });
   const validation = schema.validate(req.body);
   if (validation.error !== undefined) {
@@ -59,11 +63,13 @@ export async function generateTestPrompt(req, res) {
     });
     const result = await model.generateContent(JSON.stringify(req.body));
     response.data = result.response;
-    res.json(response);
   } catch (error) {
     response.result = 1;
     response.error = error;
     response.message = lang("InternalServerError");
     res.send(500).json(response);
   }
+
+  // store prompt in db
+
 }
