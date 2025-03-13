@@ -137,7 +137,6 @@ export async function login(req, res) {
   }
 
   response.data.isAdmin = user.role === 'admin';
-  console.log(user);
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
