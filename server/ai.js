@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Joi from 'joi';
 import lang from './lang/en.js';
+import sql from './db.js';
 
 export async function generateTestPrompt(req, res) {
   const response = {
@@ -40,10 +41,6 @@ export async function generateTestPrompt(req, res) {
     difficulty: Joi.string()
       .valid('easy', 'medium', 'hard', 'expert')
       .required(),
-
-    user_id: Joi.number()
-      .integer()
-      .required()
   });
   const validation = schema.validate(req.body);
   if (validation.error !== undefined) {
@@ -51,7 +48,7 @@ export async function generateTestPrompt(req, res) {
     response.message = lang("BadRequest");
     response.error = validation.error.details;
     res.status(400).json(response);
-    return
+    return;
   }
 
   // make call to gemini
@@ -62,14 +59,24 @@ export async function generateTestPrompt(req, res) {
       systemInstruction: preamble,
     });
     const result = await model.generateContent(JSON.stringify(req.body));
-    response.data = result.response;
+    const text = result.response.candidates[0].content.parts[0].text;
+    // const text = "Here is some text that I wrote myself so we don't waste tokens testing.";
+    
+    // store prompt in db
+    console.log(req.userid);
+    await sql`
+      INSERT INTO prompts (userid, text, theme, difficulty)
+      VALUES(${req.userid}, ${text}, ${req.body.theme}, ${req.body.difficulty});
+    `;
+    response.data.text = text;
   } catch (error) {
+    console.error(error);
     response.result = 1;
     response.error = error;
     response.message = lang("InternalServerError");
-    res.send(500).json(response);
+    res.status(500).json(response);
+    return;
   }
 
-  // store prompt in db
-
+  res.json(response);
 }

@@ -189,7 +189,20 @@ export async function isAuthenticated(req, res) {
 
 
 export function middleware(req, res, next) {
+  try {
+    const token = req.cookies.token;
+    
+    if (!token) {
+      res.status(401).json({ message: lang("UserUnauthorized") });
+      return;
+    }
 
-
-  next();
+    const SECRET_KEY = process.env.JWT_SECRET_KEY;
+    const tokenData = jwt.verify(token, SECRET_KEY);
+    req.userid = tokenData.userid; // Attach user data to request
+    next();
+  } catch (error) {
+    res.status(403).json({ message: lang("UserUnauthorized") });
+    return;
+  }
 }

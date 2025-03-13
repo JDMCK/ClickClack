@@ -59,9 +59,12 @@ app.get(`${API_PREFIX}/auth/me/`, async (req, res) => {
 });
 
 // -------------------- Test endpoints --------------------
+app.get(`${API_PREFIX}/users/{userid}/get-previous-prompts/`, async (req, res) => {
+  await test.getPreviousPrompts(req, res);
+});
 
 // -------------------- AI endpoints --------------------
-app.post(`${API_PREFIX}/ai/generate-test-prompt/`, async (req, res) => {
+app.post(`${API_PREFIX}/ai/generate-test-prompt/`, auth.middleware, async (req, res) => {
   try {
     await ai.generateTestPrompt(req, res);
   } catch (error) {
