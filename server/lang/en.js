@@ -12,6 +12,7 @@ const languageKeys = {
   "LoginUserLoggedIn": "User is logged in.",
   "LoginNoUserToken": "No user token given.",
   "UserUnauthorized": "User is unauthorized.",
+  "PromptsRetrievalFailure": "Failed to retrieve prompts.",
 }
 
 export default function lang(key, ...args) {
