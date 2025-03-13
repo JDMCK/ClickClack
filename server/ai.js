@@ -69,7 +69,6 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
 `;
     
     // store prompt in db
-    console.log(req.userid);
     await sql`
       INSERT INTO prompts (userid, text, theme, difficulty)
       VALUES(${req.userid}, ${text}, ${req.body.theme}, ${req.body.difficulty});
