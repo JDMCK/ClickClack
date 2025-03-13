@@ -70,7 +70,7 @@ export async function signup(req, res) {
     `;
     response.data.userid = userid;
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
-    const token = jwt.sign({userid, is_admin:false}, SECRET_KEY, { expiresIn: "24h" });
+    const token = jwt.sign({userid, isAdmin: false }, SECRET_KEY, { expiresIn: "24h" });
     response.message = lang("SignupSuccess");
     res.cookie("token", token, {
       httpOnly: true,
@@ -136,14 +136,14 @@ export async function login(req, res) {
     return;
   }
 
-  response.data.userid = user.userid;
-  response.data.is_admin = user.role === 'admin';
+  response.data.isAdmin = user.role === 'admin';
+  console.log(user);
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
-  const token = jwt.sign({ userid: user.userid, is_admin: user.role }, SECRET_KEY, { expiresIn: "24h" });
+  const token = jwt.sign({ userid: user.userid, isAdmin: user.role }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
   res.cookie("token", token, {
     httpOnly: true,
-    secure: true, // only send over HTTPS
+    // secure: true, // only send over HTTPS
     maxAge: 86400000 // 24 hours
   });
   
@@ -155,8 +155,7 @@ export async function isAuthenticated(req, res) {
     result: 0,
     data: {
       loggedin: false,
-      userid: '',
-      is_admin: false
+      isAdmin: false
     },
     message: '',
     error: '',
@@ -174,10 +173,10 @@ export async function isAuthenticated(req, res) {
 
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
   try {
-    const { userid, is_admin } = jwt.verify(token, SECRET_KEY);
+    const { userid, isAdmin } = jwt.verify(token, SECRET_KEY);
     response.data.loggedin = true;
     response.data.userid = userid;
-    response.data.is_admin = is_admin
+    response.data.isAdmin = isAdmin
     response.message = lang("LoginUserLoggedIn");
   } catch (error) {
     response.result = 1;
