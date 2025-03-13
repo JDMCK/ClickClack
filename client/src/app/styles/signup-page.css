@@ -51,6 +51,18 @@
     cursor: pointer;
 }
 
+.signup-login-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.signup-login-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
 /* Button hover effect */
 .signup-button:hover {
     background-color: #0056b3;
