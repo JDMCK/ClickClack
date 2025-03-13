@@ -2,6 +2,7 @@ import express from 'express'
 import * as auth from './authentication.js'
 import lang from './lang/en.js'
 import bodyParser from 'body-parser'
+import * as ai from './ai.js';
 
 
 const app = express();
@@ -23,14 +24,15 @@ app.post(`${API_PREFIX}/auth/signup`, async (req, res) => {
 });
 
 app.post(`${API_PREFIX}/auth/login`, async (req, res) => {
-  const result = await auth.login(req, res);
-  if (result.result === 0) {
-    res.json(result);
-  } else {
-    res.status(500).json(response);
-  }
+  await auth.login(req, res);
 });
 
+// -------------------- Test endpoints --------------------
+
+// -------------------- AI endpoints --------------------
+app.post(`${API_PREFIX}/ai/generate-test-prompt`, async (req, res) => {
+  await ai.generateTestPrompt(req, res);
+});
 
 app.listen(port, () => {
   console.log(`ClickClack API listening on port ${port}...`)

@@ -29,6 +29,7 @@ export async function signup(req, res) {
   const validation = schema.validate(req.body);
   if (validation.error !== undefined) {
     response.result = 1;
+    response.message = lang("BadRequest");
     response.error = validation.error.details;
     res.status(400).json(response);
     return
@@ -40,7 +41,7 @@ export async function signup(req, res) {
   `;
   if (exists) {
     response.result = 1;
-    response.error = lang("SignupUserAlreadyExists");
+    response.message = lang("SignupUserAlreadyExists");
     res.status(409).json(response);
     return;
   }
