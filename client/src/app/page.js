@@ -4,14 +4,14 @@ import "./styles/landing-page.css";
 export default function LandingPage() {
   return (
     <div className="landing-container">
-      <h1>Landing Page</h1>
-      <p>Welcome! Choose an option below:</p>
-      <div>
+      <h1 className="landing-title">ClickClack</h1>
+      <p className="landing-description">Improve your typing speed and accuracy with real-time tests.</p>
+      <div className="landing-buttons">
         <Link href="/auth/login">
-          <button>Go to Login</button>
+          <button>Login</button>
         </Link>
         <Link href="/auth/signup">
-          <button>Go to Sign Up</button>
+          <button>Sign Up</button>
         </Link>
       </div>
     </div>
