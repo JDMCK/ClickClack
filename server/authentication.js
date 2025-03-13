@@ -35,7 +35,7 @@ export async function signup(req, res) {
     response.message = lang("BadRequest");
     response.error = validation.error.details;
     res.status(400).json(response);
-    return
+    return;
   }
 
   // check if user already exists
@@ -54,6 +54,7 @@ export async function signup(req, res) {
     response.message = lang("InternalServerError");
     response.error = error;
     res.status(500).json(response);
+    return;
   }
 
   // salt and hash
@@ -81,6 +82,7 @@ export async function signup(req, res) {
     response.message = lang("InternalServerError");
     response.error = error;
     res.status(500).json(response);
+    return;
   }
   res.json(response);
 }
