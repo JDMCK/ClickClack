@@ -2,6 +2,7 @@ import express from 'express'
 import * as auth from './authentication.js'
 import bodyParser from 'body-parser'
 import * as ai from './ai.js';
+import * as test from './test.js';
 import lang from './lang/en.js';
 import cookieParser from 'cookie-parser';
 
@@ -59,8 +60,12 @@ app.get(`${API_PREFIX}/auth/me/`, async (req, res) => {
 });
 
 // -------------------- Test endpoints --------------------
-app.get(`${API_PREFIX}/users/{userid}/get-previous-prompts/`, async (req, res) => {
-  await test.getPreviousPrompts(req, res);
+app.get(`${API_PREFIX}/users/get-previous-prompts/`, auth.middleware, async (req, res) => {
+  try {
+    await test.getPreviousPrompts(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
 });
 
 // -------------------- AI endpoints --------------------
