@@ -196,7 +196,7 @@ export function middleware(req, res, next) {
     const token = req.cookies.token;
     
     if (!token) {
-      res.status(401).json({ message: lang("UserUnauthorized") });
+      res.status(401).json({ message: lang("UserUnauthorizedNoToken") });
       return;
     }
 

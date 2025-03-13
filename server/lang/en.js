@@ -11,6 +11,7 @@ const languageKeys = {
   "LoginUserNotLoggedIn": "User is not logged in.",
   "LoginUserLoggedIn": "User is logged in.",
   "LoginNoUserToken": "No user token given.",
+  "UserUnauthorizedNoToken": "User has no authorization token.",
   "UserUnauthorized": "User is unauthorized.",
   "PromptsRetrievalFailure": "Failed to retrieve prompts.",
 }
