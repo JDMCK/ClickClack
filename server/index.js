@@ -19,24 +19,19 @@ app.get('/', (_, res) => {
 
 // -------------------- Auth endpoints --------------------
 app.post(`${API_PREFIX}/auth/signup`, async (req, res) => {
-  const result = await auth.signup(req, res);
-  if (result.status) {
-    res.json(result);
-  } else {
-    res.status(500).json({ result: 0, error: lang('ServerError') });
-  }
+  await auth.signup(req, res);
 });
 
 app.post(`${API_PREFIX}/auth/login`, async (req, res) => {
   const result = await auth.login(req, res);
-  if (result.status) {
+  if (result.result === 0) {
     res.json(result);
   } else {
-    res.status(500).json({ result: 0, error: lang('ServerError') });
+    res.status(500).json(response);
   }
 });
 
 
 app.listen(port, () => {
   console.log(`ClickClack API listening on port ${port}...`)
-})
+});

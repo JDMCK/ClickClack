@@ -1,6 +1,8 @@
 const languageKeys = {
   "ServerError": "Internal server error occurred.",
-  "Welcome": "Welcome to the official API of ClickClack!"
+  "Welcome": "Welcome to the official API of ClickClack!",
+  "SignupUserAlreadyExists": "User already exists.",
+  "SignupSuccess": "Successfully signed up user."
 }
 
 export default function lang(key, ...args) {
