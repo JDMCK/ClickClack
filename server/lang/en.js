@@ -4,7 +4,10 @@ const languageKeys = {
   "SignupUserAlreadyExists": "User already exists.",
   "SignupSuccess": "Successfully signed up user.",
   "BadRequest": "Bad request.",
-  "InternalServerError": "Internal server error has occurred."
+  "InternalServerError": "Internal server error has occurred.",
+  "LoginUserNotFound": "User account doesn't exist.",
+  "LoginSuccess": "Successfully logged in user .",
+  "LoginPasswordNotMatched": "Faiiled to log in user, incorrect password."
 }
 
 export default function lang(key, ...args) {
