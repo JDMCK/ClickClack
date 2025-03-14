@@ -28,8 +28,10 @@ export default function LoginPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
+        credentials: 'include'
       });
 
+      console.log(response);
       if (!response.ok) {
         throw new Error("Failed to sign up.");
       }
