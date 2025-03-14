@@ -75,7 +75,8 @@ export async function signup(req, res) {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true, // only send over HTTPS
-      maxAge: 86400000 // 24 hours
+      // sameSite: 'None', // Uncomment for production
+      maxAge: 86400000 // 24 hours,
     });
   } catch (error) {
     response.result = 1;
@@ -143,6 +144,7 @@ export async function login(req, res) {
   res.cookie("token", token, {
     httpOnly: true,
     secure: true, // only send over HTTPS
+    // sameSite: 'None', // Uncomment for production
     maxAge: 86400000 // 24 hours
   });
   
