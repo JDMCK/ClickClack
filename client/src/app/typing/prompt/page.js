@@ -36,6 +36,7 @@ export default function PromptPage() {
             }
 
             const data = await res.json();
+            console.log("AI generated text:", data.data);
             setResponse(data.response);
         } catch (error) {
             setError(error.message);
