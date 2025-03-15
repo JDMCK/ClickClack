@@ -22,7 +22,7 @@ export default function LoginPage() {
     };
 
     try {
-      const response = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/auth/login/", {
+      const response = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
