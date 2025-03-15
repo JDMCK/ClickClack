@@ -24,7 +24,7 @@ export default function SignupPage() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/api/v1/auth/signup", {
+      const response = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
