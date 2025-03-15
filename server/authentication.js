@@ -11,7 +11,7 @@ export async function signup(req, res) {
     data: {},
     message: '',
     error: '',
-    received: req.body
+    received: 'Sign up credentials'
   };
 
   // input validation
@@ -94,7 +94,7 @@ export async function login(req, res) {
     data: {},
     message: '',
     error: '',
-    received: req.body
+    received: 'Login credentials'
   };
 
   // validate input
@@ -160,7 +160,7 @@ export async function isAuthenticated(req, res) {
     },
     message: '',
     error: '',
-    received: req.body
+    received: ''
   };
   
   const token = req.cookies.token;
