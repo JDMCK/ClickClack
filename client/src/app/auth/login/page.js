@@ -38,6 +38,7 @@ export default function LoginPage() {
 
       const data = await response.json();
       console.log("Login successful:", data);
+      window.location.href = "/typing/prompt"; //TODO: refactor to something more elegant in prod
 
     } catch (error) {
       console.error("Error:", error);

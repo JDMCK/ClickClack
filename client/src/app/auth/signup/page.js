@@ -38,6 +38,7 @@ export default function SignupPage() {
 
       const data = await response.json();
       console.log("Signup successful:", data);
+      window.location.href = "/typing/prompt"; //TODO: refactor to something more elegant in prod
 
     } catch (error) {
       console.error("Error:", error);
