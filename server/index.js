@@ -24,7 +24,6 @@ app.use((req, res, next) => { // CORS
   if (req.method === "OPTIONS") {
       return res.sendStatus(204); // No Content
   }
-
   next();
 });
 
