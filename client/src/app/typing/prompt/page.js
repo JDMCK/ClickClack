@@ -22,7 +22,7 @@ export default function PromptPage() {
         };
 
         try {
-            const res = await fetch("http://localhost:3001/api/v1/ai/generate-test-prompt/", {
+            const res = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/ai/generate-test-prompt/", {
                 credentials: "include",
                 method: "POST",
                 headers: {
