@@ -72,12 +72,7 @@ export async function signup(req, res) {
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
     const token = jwt.sign({userid, isAdmin: false }, SECRET_KEY, { expiresIn: "24h" });
     response.message = lang("SignupSuccess");
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true, // only send over HTTPS
-      // sameSite: 'None', // Uncomment for production
-      maxAge: 86400000 // 24 hours,
-    });
+    setJWTCookie(res, token);
   } catch (error) {
     response.result = 1;
     response.message = lang("InternalServerError");
@@ -141,12 +136,7 @@ export async function login(req, res) {
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true, // only send over HTTPS
-    // sameSite: 'None', // Uncomment for production
-    maxAge: 86400000 // 24 hours
-  });
+  setJWTCookie(res, token);
   
   res.json(response);
 }
@@ -195,6 +185,7 @@ export function middleware(req, res, next) {
   try {
     const token = req.cookies.token;
     
+    console.log(req.cookies);
     if (!token) {
       res.status(401).json({ message: lang("UserUnauthorizedNoToken") });
       return;
@@ -203,9 +194,18 @@ export function middleware(req, res, next) {
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
     const tokenData = jwt.verify(token, SECRET_KEY);
     req.userid = tokenData.userid; // Attach user data to request
+    req.isAdmin = tokenData.isAdmin;
     next();
   } catch (error) {
     res.status(403).json({ message: lang("UserUnauthorized") });
     return;
   }
+}
+
+function setJWTCookie(res, token) {
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.ENVIRONMENT !== "dev",
+    maxAge: 86400000 // 24 hours
+  });
 }
