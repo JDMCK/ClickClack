@@ -44,8 +44,6 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
 
   const getAccuracy = (keyStrokes) => {
     const promptKeys = prompt.split('');
-
-    console.log(keyStrokes, promptKeys);
     
     let offset = 0;
     let correct = 0;
@@ -61,9 +59,6 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
         error++;
       }
     }
-    console.log("offset: ", offset)
-    console.log("correct: ", correct)
-    console.log("error: ", error)
 
     return correct / (correct + error);
   } 
