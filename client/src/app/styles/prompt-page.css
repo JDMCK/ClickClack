@@ -23,6 +23,11 @@
     margin: 10px 0;
     padding: 10px;
     font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.prompt-input {
+    resize: none;
 }
 
 .prompt-button {
