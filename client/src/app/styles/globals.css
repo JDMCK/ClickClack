@@ -57,3 +57,12 @@ body {
   font-size: 1rem;
   font-weight: 400;
 }
+
+
+/* ---- Error pages ---- */
+.not-found, .forbidden {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
