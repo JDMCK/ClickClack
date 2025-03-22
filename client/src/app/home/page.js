@@ -47,20 +47,12 @@ export default function Home() {
     return (
         <div className="container">
             <h2>Ready for some ducktyping?</h2>
-            <div onClick={() => { router.push('/typing/prompt'); }}>
+            <div onClick={() => { router.push('/typing/prompt'); }}> 
                 <h4>Start typing</h4>
                 <p>Generate new text or use a previous one.</p>
             </div>
             <div onClick={() => {
-                /*This doesn't work with http only cookie
-                const isAdmin = document.cookie.split('; ').find(row => 
-                    row.startsWith('is_admin')).split('=')[1] === 'true';
-                if (!isAdmin) {
-                    alert('You do not have permission to access this page.');
-                    return;
-                }
-                */
-
+                // TODO: Can this be refactored into one page that passes isAdmin as a route param? 
                 if (isAdmin) {
                     router.push('/profile/admin')
                 } else if (isLoggedin) {
