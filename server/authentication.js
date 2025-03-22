@@ -177,7 +177,7 @@ export async function isAuthenticated(req, res) {
     const { userid, isAdmin } = jwt.verify(token, SECRET_KEY);
     response.data.loggedin = true;
     response.data.userid = userid;
-    response.data.isAdmin = isAdmin
+    response.data.isAdmin = isAdmin == "admin" ? true : false
     response.message = lang("LoginUserLoggedIn");
   } catch (error) {
     response.result = 1;
