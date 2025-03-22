@@ -46,22 +46,24 @@ export default function Home() {
     const router = useRouter();
     return (
         <div className="container">
-            <h2>Ready for some ducktyping?</h2>
-            <div onClick={() => { router.push('/typing/prompt'); }}> 
-                <h4>Start typing</h4>
-                <p>Generate new text or use a previous one.</p>
-            </div>
-            <div onClick={() => {
-                // TODO: Can this be refactored into one page that passes isAdmin as a route param? 
-                if (isAdmin) {
-                    router.push('/profile/admin')
-                } else if (isLoggedin) {
-                    router.push('/profile/user/');
-                } else {
-                    router.push('/403')
-                }
-            }}>
-                <h4>Profile</h4>
+            <div>
+                <h2>Ready for some ducktyping?</h2>
+                <div onClick={() => { router.push('/typing/prompt'); }}>
+                    <h4>Start typing</h4>
+                    <p>Generate new text or use a previous one.</p>
+                </div>
+                <div onClick={() => {
+                    // TODO: Can this be refactored into one page that passes isAdmin as a route param? 
+                    if (isAdmin) {
+                        router.push('/profile/admin')
+                    } else if (isLoggedin) {
+                        router.push('/profile/user/');
+                    } else {
+                        router.push('/403')
+                    }
+                }}>
+                    <h4>Profile</h4>
+                </div>
             </div>
         </div>
     );
