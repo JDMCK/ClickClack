@@ -23,7 +23,7 @@ export default function UserProfile() {
                     <p>Generate new text or use a previous one.</p>
                 </div>
                 <div className='content'>
-                    <h5>Control pannel</h5>
+                    <h4>Control pannel</h4>
                     <p>Remaining tokens:</p>
                     <button type="submit" className="logout-button" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
 

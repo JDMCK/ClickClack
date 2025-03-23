@@ -17,14 +17,15 @@ export default function UserProfile() {
         <div className="container">
             <div className='content-box'>
 
-                <div className='content' onClick={() => { router.push('/typing/prompt'); }}>
-                    <h4>Start typing</h4>
+                <div className='content' >
+                    <h4>Start another run?</h4>
                     <p>Generate new text or use a previous one.</p>
+                    <button onClick={() => { router.push('/typing/prompt'); }}>Start</button>
                 </div>
                 <div className='content'>
-                    <h5>Control pannel</h5>
+                    <h4>Control pannel</h4>
                     <p>Remaining tokens:</p>
-                    <button type="submit" className="logout-button" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
+                    <button type="submit" className="logout-btn" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
 
                 </div>
             </div>
