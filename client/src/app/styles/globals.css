@@ -5,13 +5,65 @@
   /* Quicksand font */
 }
 
+/* Custom color themes */
+/* :root[data-theme="light"] {
+  --text: #0a1109;
+  --background: #fcfdfc;
+  --primary: #6aaa64;
+  --secondary: #9fcabd;
+  --accent: #85bcb7;
+}
+:root[data-theme="dark"] {
+  --text: #eff6ee;
+  --background: #020302;
+  --primary: #5b9b55;
+  --secondary: #355f53;
+  --accent: #437a75;
+} */
+/*  
+  Duck Plooms
+:root[data-theme="light"] {
+  --text: #101b1e;
+  --background: #ecf3f4;
+  --primary: #315359;
+  --secondary: #9690c1;
+  --accent: #765aa0;
+}
+:root[data-theme="dark"] {
+  --text: #e1ecef;
+  --background: #0b1213;
+  --primary: #a6c8ce;
+  --secondary: #443e6f;
+  --accent: #7b5fa5;
+} */
+
+:root[data-theme="light"] {
+  --text: #1a0a05;
+  --background: #fef9f8;
+  --primary: #d75936;
+  --secondary: #e9d590;
+  --accent: #e0ca65;
+}
+:root[data-theme="dark"] {
+  --text: #faeae5;
+  --background: #090301;
+  --primary: #c84a28;
+  --secondary: #6f5b16;
+  --accent: #98821f;
+}
+
+
+
 /*---- Global ----*/
 body {
   margin: 0;
   padding: 0;
   font-size: 1rem;
   line-height: 1.6;
+  background-color: var(--background);
+  color: var(--text);
 }
+
 
 .container {
   margin: 3%;
@@ -40,22 +92,23 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #333;
-  color: #fff;
+  color: var(--text);
+  border-bottom: 1px solid var(--primary);
 }
 
 .nav-logo a {
+  color: var(--text);
   text-decoration: none;
-  color: #fff;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
 .nav-profile-btn a {
   text-decoration: none;
-  color: #fff;
+  color: var(--text);
   font-size: 1rem;
   font-weight: 400;
+  margin: auto;
 }
 
 
