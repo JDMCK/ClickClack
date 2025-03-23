@@ -28,7 +28,6 @@ export default function Home() {
             }
 
             const authRes = await response.json();
-            console.log(authRes.data)
             setIsAdmin(authRes.data.isAdmin);
             setLoggedin(authRes.data.loggedin)
         } catch (error) {
@@ -48,7 +47,7 @@ export default function Home() {
         <div className="container">
             <h1>Ready for some ducktyping?</h1>
             {/* We should make this be the landing page after M2 submission*/}
-            <p>// This really ought to be the landing page...</p>
+            <p>// This really should just be the landing page...</p>
             {/* <button>Log in</button>
             <button>Sign up</button> */}
             <div className='content-box'>

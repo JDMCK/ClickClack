@@ -12,7 +12,6 @@ export default function UserProfile() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // TODO: implement log out req and function to handle in backend
     const logOut = async () => {
         setLoading(true)
         try {
@@ -24,7 +23,7 @@ export default function UserProfile() {
                 credentials: 'include'
             });
             const res = await response.json();
-            //TODO: tell backend team about this structure
+            //TODO: tell backend team about response structure
             setAvailableTokens(res.data.availableTokens)
         } catch (error) {
             console.log(error);
