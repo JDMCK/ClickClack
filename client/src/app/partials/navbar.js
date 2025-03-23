@@ -20,7 +20,7 @@ export default function Navbar () {
                 {/* TODO: Add the logo here AND fix the profile Link*/}
                 <Link href="/home">ClickClack</Link> 
             </div>
-            <div className='nav-profile-btn'>
+            <div className='nav-btns'>
                 <Link href="/profile/user">profile</Link> 
                 <button onClick={toggleTheme}>theme</button>
             </div>
