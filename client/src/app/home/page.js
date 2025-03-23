@@ -46,23 +46,29 @@ export default function Home() {
     const router = useRouter();
     return (
         <div className="container">
-            <div>
-                <h2>Ready for some ducktyping?</h2>
-                <div onClick={() => { router.push('/typing/prompt'); }}>
-                    <h4>Start typing</h4>
+            <h1>Ready for some ducktyping?</h1>
+            {/* We should make this be the landing page after M2 submission*/}
+            <p>// This really ought to be the landing page...</p>
+            {/* <button>Log in</button>
+            <button>Sign up</button> */}
+            <div className='content-box'>
+                <div className='content' >
+                    <h2>Start another run?</h2>
                     <p>Generate new text or use a previous one.</p>
+                    <button onClick={() => { router.push('/typing/prompt'); }}>Start</button>
                 </div>
-                <div onClick={() => {
-                    // TODO: Can this be refactored into one page that passes isAdmin as a route param? 
-                    if (isAdmin) {
-                        router.push('/profile/admin')
-                    } else if (isLoggedin) {
-                        router.push('/profile/user/');
-                    } else {
-                        router.push('/403')
-                    }
-                }}>
-                    <h4>Profile</h4>
+                <div className='content' >
+                    <h2>Profile</h2>
+                    <button onClick={() => {
+                        // TODO: Can this be refactored into one page that passes isAdmin as a route param? 
+                        if (isAdmin) {
+                            router.push('/profile/admin')
+                        } else if (isLoggedin) {
+                            router.push('/profile/user/');
+                        } else {
+                            router.push('/403')
+                        }
+                    }}>Go</button>
                 </div>
             </div>
         </div>
