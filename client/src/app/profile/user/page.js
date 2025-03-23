@@ -1,5 +1,6 @@
 "use client"
 
+import Scoreboard from '@/app/partials/scoreboard';
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
@@ -26,14 +27,8 @@ export default function UserProfile() {
                     <button type="submit" className="logout-button" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
 
                 </div>
-                <div className='scoreboard content'>
-                    <h4>Scoreboard</h4>
-                    <p>Your previous typing runs</p>
-                    {/* 
-                TODO: Here we'll display the user's previous runs and metrics
-                */}
-                </div>
             </div>
+            <Scoreboard />
         </div>
     )
 }
