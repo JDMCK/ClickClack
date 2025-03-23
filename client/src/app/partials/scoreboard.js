@@ -35,8 +35,46 @@ export default function Scoreboard() {
 
     return (
         <div className="scoreboard container">
-            <h3>Scoreboard here...</h3>
+            <h3>Previous Trials</h3>
             {/* Structure and display scores as a table (styled of course) */}
+            <table className="score-table">
+                <thead>
+                    <tr>
+                        <th>Prompt ID</th>
+                        <th>Date</th>
+                        <th>WPM</th>
+                        <th>AWPM</th>
+                        <th>Difficulty</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loading ? (
+                        <tr>
+                            <td colSpan="6">Loading...</td>
+                        </tr>
+                    ) : error ? (
+                        <tr>
+                            <td colSpan="6">Error: {error}</td>
+                        </tr>
+                    ) : scores.length === 0 ? (
+                        <tr>
+                            <td colSpan="6">No scores available...</td>
+                        </tr>
+                    ) : (
+                        scores.map((score) => (
+                            <tr key={score.promptId}>
+                                <td>{score.promptId}</td>
+                                <td>{new Date(score.date).toLocaleDateString()}</td>
+                                <td>{score.wpm}</td>
+                                <td>{score.awpm}</td>
+                                <td>{score.difficulty}</td>
+                                <td>{score.time}</td>
+                            </tr>
+                        ))
+                    )}
+                </tbody>
+            </table>
         </div>
     )
 }
