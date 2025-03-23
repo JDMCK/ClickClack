@@ -1,7 +1,19 @@
+'use client'
 import Link from 'next/link';
+import { useState, useEffect } from "react";
+
 
 
 export default function Navbar () {
+    const [theme, setTheme] = useState('light');
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    };
     return (
         <nav className='navbar'>
             <div className='nav-logo'>
@@ -10,6 +22,7 @@ export default function Navbar () {
             </div>
             <div className='nav-profile-btn'>
                 <Link href="/profile/user">profile</Link> 
+                <button onClick={toggleTheme}>theme</button>
             </div>
         </nav>
     );
