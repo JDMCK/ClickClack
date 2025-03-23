@@ -32,11 +32,10 @@ export default function Scoreboard() {
         }
     }
 
-
     return (
         <div className="scoreboard container">
             <h3>Previous Trials</h3>
-            {/* Structure and display scores as a table (styled of course) */}
+            {/* Structure and display scores as a table */}
             <table className="score-table">
                 <thead>
                     <tr>

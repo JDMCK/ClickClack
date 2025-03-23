@@ -15,27 +15,21 @@ export default function UserProfile() {
     return (
         <div className="container">
             <h1>You're an Admin Duck!</h1>
-            <h2>Type</h2>
+            
             <div className='content-box'>
-
-                <div className='content' onClick={() => { router.push('/typing/prompt'); }}>
-                    <h4>Start typing</h4>
+                <div className='content' >
+                    <h4>Start another run?</h4>
                     <p>Generate new text or use a previous one.</p>
+                    <button onClick={() => { router.push('/typing/prompt'); }}>Start</button>
                 </div>
                 <div className='content'>
                     <h4>Control pannel</h4>
                     <p>Remaining tokens:</p>
-                    <button type="submit" className="logout-button" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
+                    <button type="submit" className="logout-btn" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
 
                 </div>
-                <div className='scoreboard content'>
-                    <h4>Scoreboard</h4>
-                    <p>Your previous typing runs</p>
-                    {/* 
-                TODO: Here we'll display the user's previous runs and metrics
-                */}
-                </div>
             </div>
+            <Scoreboard />
         </div>
-        )
+    )
 }
