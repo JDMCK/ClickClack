@@ -1,6 +1,6 @@
 "use client";
 
-import "../../styles/login-page.css";
+import "../../../styles/login-page.css";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -38,7 +38,7 @@ export default function LoginPage() {
 
       const data = await response.json();
       console.log("Login successful:", data);
-      window.location.href = "/typing/prompt"; //TODO: refactor to something more elegant in prod
+      window.location.href = "/home";
 
     } catch (error) {
       console.error("Error:", error);
