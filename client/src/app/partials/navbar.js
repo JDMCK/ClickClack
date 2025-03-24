@@ -21,8 +21,8 @@ export default function Navbar () {
                 <Link href="/home">ClickClack</Link> 
             </div>
             <div className='nav-btns'>
-                <Link href="/profile/user">profile</Link> 
-                <button onClick={toggleTheme}>theme</button>
+                <Link href="/profile/user">Profile</Link> 
+                <button onClick={toggleTheme}>{theme === 'light' ? 'Dark' : 'Light'}</button>
             </div>
         </nav>
     );
