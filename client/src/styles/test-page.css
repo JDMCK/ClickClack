@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+nav {
+    padding: 1rem;
+}
+
+nav a {
+    display: flex;
+    background-color: black;
+    color: white;
+    border-radius: 0.75rem;
+    width: 5rem;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+
+.screen-container {
+    height: 50dvh;
+}
+
+.typing-frame {
+    width: 100%;
+    margin-top: 10rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.typing-container {
+    width: 100%;
+    flex: 1;
+    top: 0;
+    left: 0;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: "Roboto Mono", monospace;
+    position: absolute;
+    transition: transform 0.3s ease-in-out;
+}
+
+.typing-row {
+    margin: 0;
+}
+
+.typing-container p {
+    margin-inline: 20%;
+}
+
+.typed-correct {
+    color: gray;
+}
+
+.typed-error {
+    color: lightcoral;
+}
+
+.prompt {
+    color: darkslategray;
+}
+
+.cursor {
+    height: 1.65rem;
+    width: 0.25rem;
+    position: absolute;
+    border-radius: 5rem;
+    animation: fadeBlink 1.5s ease-in-out infinite;
+    transform: translate(-0.2rem, 0.2rem);
+}
+
+.timer {
+    margin-top: 10rem;
+    text-align: center;
+}
+  
+@keyframes fadeBlink {
+0% { background-color: gold; }
+50% { background-color: orange; }
+100% { background-color: gold; }
+}
