@@ -69,6 +69,14 @@ app.get(`${API_PREFIX}/users/get-previous-prompts/`, auth.middleware, async (req
   }
 });
 
+app.post(`${API_PREFIX}/users/store-test/`, auth.middleware, async (req, res) => {
+  try {
+    await test.storeTest(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
+})
+
 app.get(`${API_PREFIX}/users/profile/`, auth.middleware, async (req, res) => {
   try {
     await users.profile(req, res);
