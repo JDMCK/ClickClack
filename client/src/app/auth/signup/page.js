@@ -1,6 +1,6 @@
 "use client";
 
-import "../../styles/signup-page.css";
+import "../../../styles/signup-page.css";
 import Link from "next/link";
 import { useState } from "react";
 

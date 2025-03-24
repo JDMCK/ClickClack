@@ -1,7 +1,7 @@
 "use client";
 
 import Scoreboard from "@/app/partials/scoreboard";
-import "../../styles/prompt-page.css";
+import "../../../styles/prompt-page.css";
 import { useState } from "react";
 
 export default function PromptPage() {
