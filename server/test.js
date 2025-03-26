@@ -36,7 +36,7 @@ export async function saveTest(req, res) {
   };
 
   try {
-    const { keyStrokes, prompt, duration } = req.body;
+    const { keyStrokes, prompt, duration, promptid } = req.body;
 
     if (!keyStrokes || !prompt || !duration) {
       response.result = 1;
@@ -47,6 +47,13 @@ export async function saveTest(req, res) {
     const accuracy = getAccuracy(keyStrokes, prompt);
     const wpm = getWPM(keyStrokes, duration);
     const awpm = getAWPM(keyStrokes, duration, prompt);
+    const date = new Date().toISOString().split('T')[0]; 
+    const userid = req.userid;
+
+    await sql`
+      INSERT INTO tests (promptid, userid, wpm, awpm, accuracy, date)
+      VALUES (${promptid}, ${userid}, ${wpm}, ${awpm}, ${accuracy}, ${date});
+    `;
 
     response.data.accuracy = accuracy;
     response.data.wpm = wpm;
