@@ -23,7 +23,8 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    background: white;
+    background: var(--background);
+    color: var(--text);
     padding: 20px;
     border-radius: 8px;
     width: 300px;
@@ -38,6 +39,8 @@
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
+    background-color: var(--background);
+    color: var(--text);
 }
 
 .login-button {

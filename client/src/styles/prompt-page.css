@@ -1,6 +1,6 @@
 /* Prompt Page Styles */
 .prompt-container {
-    max-width: 600px;
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -12,6 +12,8 @@
 }
 
 .prompt-form {
+    max-width: 600px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,6 +26,8 @@
     padding: 10px;
     font-size: 1rem;
     box-sizing: border-box;
+    background-color: var(--background);
+    color: var(--text);
 }
 
 .prompt-input {
@@ -50,6 +54,20 @@
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+.prompt-response a {
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.prompt-response a:hover {
+    background-color: var(--accent);
 }
 
 .error-message {

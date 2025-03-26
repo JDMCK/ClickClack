@@ -1,7 +1,7 @@
 'use client';
 
-import '../../styles/test-page.css'
-import { useRouter } from 'next/navigation'
+import '../../../styles/test-page.css'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 function splitIntoRows(text, length) {
@@ -57,23 +57,17 @@ function Timer({ duration, onFinish, onCancel, onTick }) {
 
 export default function TestPage() {
   const router = useRouter();
-  const data = router.query;
-  // const prompt = data.prompt.replaceAll('\n', ' ').replaceAll('  ', ' ');
-  const testDurationSeconds = 15;//data.testDuration;
-  const prompt = `The vast ocean stretched endlessly before her, its deep blue waves shimmering under the golden sun.\n
-Seagulls called above as she took a deep breath of the salty air.\n
-Each crashing wave told a different story, whispering secrets of the past.\n
-She closed her eyes, feeling the cool breeze against her face, and imagined distant lands beyond the horizon.\n
-The rhythmic sound of the tide was calming, a reminder that nature moves at its own pace.\n
-No rush, no urgency—just the endless cycle of the sea, carrying dreams and mysteries with every ebb and flow.
-`.replaceAll('\n', ' ').replaceAll('  ', ' ');
+  const params = JSON.parse(decodeURIComponent(atob(useSearchParams().get('data'))));
+  const prompt = params.prompt.replaceAll('\n', ' ').replaceAll('  ', ' ');
+  const promptid = params.promptid;
+  const testDurationSeconds = 5//params.testDuration;
 
-  const [keys, setKeys] = useState([]);
+  const keysRef = useRef([]);
   const [displayKeys, setDisplayKeys] = useState([]);
   const [currentRow, setCurrentRow] = useState(0);
   const [testActive, setTestActive] = useState(false);
   const [testStarted, setTestStarted] = useState(false);
-  const wordsPerRow = 8;
+  const [wordsPerRow, setWordsPerRow] = useState(5);
   
   const pHeight = 40; // height of each p (adjust as needed)
   const maxVisibleRows = 3;
@@ -107,7 +101,7 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
       }
   
       setDisplayKeys(prev => prev.slice(0, -1));
-      setKeys(prev => [...prev, e.key]);
+      keysRef.current.push(e.key);
       return;
     }
   
@@ -133,11 +127,12 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
     }
   
     setDisplayKeys(prev => [...prev, e.key]);
-    setKeys(prev => [...prev, e.key]);
+    keysRef.current.push(e.key);
   }, [displayKeys, promptRows, testActive, testStarted]);
   
 
   useEffect(() => {
+    setWordsPerRow(Math.max(2, Math.floor(window.innerWidth / 180)));
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
@@ -147,14 +142,14 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
   const onFinish = useCallback(async () => {
     setTestActive(false);
 
-    const finalKeys = keys;
     const payload = {
-      keyStrokes: finalKeys,
-      prompt: prompt,
+      keyStrokes: keysRef.current,
+      prompt,
+      promptid,
       duration: testDurationSeconds
     }
     try {
-      const res = await fetch("http://localhost:3001/api/v1/test/save-test", {
+      const res = await fetch("http://localhost:3001/api/v1/test/save-test/", {
         credentials: "include",
         method: "POST",
         headers: {
@@ -168,14 +163,13 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
       }
 
       const data = await res.json();
-      console.log("AI generated text:", data.data);
-      // setResponse(data.response);
+      console.log(data);
   } catch (error) {
-    console.error(error.message);
+    console.log(error.message);
   } finally {
-    router.push('/typing/profile');
+    router.push('/profile/user');
   }
-  }, []);
+  }, [prompt, promptid, router]);
   
   const onCancel = useCallback(() => {
     console.log("Test cancelled.");
@@ -243,7 +237,10 @@ No rush, no urgency—just the endless cycle of the sea, carrying dreams and mys
           )}
         </div>
       </div>
-      {testStarted && <Timer duration={testDurationSeconds} onFinish={onFinish} onCancel={onCancel} />}
+      {testStarted ? 
+        <Timer duration={testDurationSeconds} onFinish={onFinish} onCancel={onCancel} />
+        : <div className='typing-instructions'>The timer will start when you start typing.</div>
+      }
     </div>
   )
 }

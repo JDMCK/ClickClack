@@ -27,20 +27,35 @@ export async function getPreviousPrompts(req, res) {
 }
 
 export async function storeTest(req, res) {
+  const response = {
+    result: 0,
+    data: {},
+    message: '',
+    error: '',
+    received: req.body
+  };
+
   try {
     const { keyStrokes, prompt, duration } = req.body;
 
     if (!keyStrokes || !prompt || !duration) {
-      return res.status(400).json({ message: "Missing required fields "});
+      response.result = 1;
+      response.message = "Missing required fields."
+      return res.status(400).json(response);
     }
 
     const accuracy = getAccuracy(keyStrokes, prompt);
     const wpm = getWPM(keyStrokes, duration);
     const awpm = getAWPM(keyStrokes, duration, prompt);
 
-    res.json({ message: "Test processed!", accuracy, wpm, awpm });
+    response.data.accuracy = accuracy;
+    response.data.wpm = wpm;
+    response.data.awpm = awpm;
+
+    res.json(response);
   } catch (error) {
     console.error("Error processing test:", error);
-    res.status(500).json({ message: "Internal server error" });
+    response.message = "Internal server error."
+    res.status(500).json(response);
   }
 }

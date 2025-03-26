@@ -3,6 +3,7 @@
 import Scoreboard from "@/app/partials/scoreboard";
 import "../../../styles/prompt-page.css";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function PromptPage() {
     const [difficulty, setDifficulty] = useState("easy");
@@ -38,7 +39,7 @@ export default function PromptPage() {
 
             const data = await res.json();
             console.log("AI generated text:", data.data);
-            setResponse(data.response);
+            setResponse(data.data);
         } catch (error) {
             setError(error.message);
         } finally {
@@ -67,7 +68,17 @@ export default function PromptPage() {
                 {response && (
                     <div className="prompt-response">
                         <h3>Generated Prompt:</h3>
-                        <p>{response}</p>
+                        <p>{response.text}</p>
+                        <Link href={{
+                            pathname: '/typing/test',
+                            query: {
+                                data: btoa(encodeURIComponent(JSON.stringify({
+                                            testDuration: 15,
+                                            prompt: response.text,
+                                            promptid: response.promptid,
+                                        })))
+                            }
+                        }}>Use Prompt</Link>
                     </div>
                 )}
 
