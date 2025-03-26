@@ -46,7 +46,7 @@ export async function saveTest(req, res) {
 
     const accuracy = getAccuracy(keyStrokes, prompt);
     const wpm = getWPM(keyStrokes, duration);
-    const awpm = getAWPM(wpm, keyStrokes, duration, prompt);
+    const awpm = getAWPM(keyStrokes, duration, prompt);
 
     response.data.accuracy = accuracy;
     response.data.wpm = wpm;

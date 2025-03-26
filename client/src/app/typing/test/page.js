@@ -57,10 +57,11 @@ function Timer({ duration, onFinish, onCancel, onTick }) {
 
 export default function TestPage() {
   const router = useRouter();
-  const params = JSON.parse(decodeURIComponent(atob(useSearchParams().get('data'))));
+  const data = useSearchParams().get('data');
+  const params = JSON.parse(decodeURIComponent(atob(data)));
   const prompt = params.prompt.replaceAll('\n', ' ').replaceAll('  ', ' ');
   const promptid = params.promptid;
-  const testDurationSeconds = 5//params.testDuration;
+  const testDurationSeconds = params.testDuration;
 
   const keysRef = useRef([]);
   const [displayKeys, setDisplayKeys] = useState([]);

@@ -19,6 +19,7 @@
     align-items: center;
 }
 
+.test-duration-select,
 .prompt-select,
 .prompt-input {
     width: 80%;
@@ -28,6 +29,16 @@
     box-sizing: border-box;
     background-color: var(--background);
     color: var(--text);
+}
+
+.duration-container {
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 80%
 }
 
 .prompt-input {
