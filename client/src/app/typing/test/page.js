@@ -150,7 +150,7 @@ export default function TestPage() {
       duration: testDurationSeconds
     }
     try {
-      const res = await fetch("http://localhost:3001/api/v1/test/save-test/", {
+      const res = await fetch("http://localhost:3001/api/v1/tests/save-test/", {
         credentials: "include",
         method: "POST",
         headers: {

@@ -69,13 +69,13 @@ app.get(`${API_PREFIX}/users/get-previous-prompts/`, auth.middleware, async (req
   }
 });
 
-app.post(`${API_PREFIX}/test/save-test/`, auth.middleware, async (req, res) => {
+app.post(`${API_PREFIX}/tests/save-test/`, auth.middleware, async (req, res) => {
   try {
     await test.saveTest(req, res);
   } catch (error) {
     serverError(res, error);
   }
-})
+});
 
 app.get(`${API_PREFIX}/users/profile/`, auth.middleware, async (req, res) => {
   try {
@@ -83,7 +83,7 @@ app.get(`${API_PREFIX}/users/profile/`, auth.middleware, async (req, res) => {
   } catch (error) {
     serverError(res, error);
   }
-})
+});
 
 // -------------------- AI endpoints --------------------
 app.post(`${API_PREFIX}/ai/generate-test-prompt/`, auth.middleware, async (req, res) => {
