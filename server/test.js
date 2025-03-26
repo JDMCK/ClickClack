@@ -66,3 +66,34 @@ export async function saveTest(req, res) {
     res.status(500).json(response);
   }
 }
+
+export async function getTests(req, res) {
+  const response = {
+    result: 0,
+    data: {},
+    message: '',
+    error: '',
+    received: ''
+  };
+
+  try {
+    const userid = req.userid;
+
+    const tests = await sql`
+      SELECT testid, promptid, wpm, awpm, accuracy, date
+      FROM tests
+      WHERE userid = ${userid}
+      ORDER BY date DESC;
+    `;
+
+    response.data.tests = tests;
+    response.message = "Tests retrieved successfully.";
+    res.json(response);
+  } catch (error) {
+    console.error("Error retrieving tests:", error);
+    response.result = 1;
+    response.message = "Failed to retrieve tests.";
+    response.error = error;
+    res.status(500).json(response);
+  }
+}
