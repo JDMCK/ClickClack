@@ -12,8 +12,6 @@ export async function profile(req, res) {
 
   response.data.role = req.role;
   response.data.userid = req.userid;
-  // console.log(req.userid);
-  // console.log(req.role);
 
   res.json(response);
 }
