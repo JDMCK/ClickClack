@@ -1,6 +1,6 @@
 import sql from "./db.js";
 import lang from "./lang/en.js";
-import { getAccuracy, getWPM, getAWPM } from "./utils/store_test.js";
+import { getAccuracy, getWPM, getAWPM } from "./utils/save_test.js";
 
 export async function getPreviousPrompts(req, res) {
   const response = {
@@ -26,7 +26,7 @@ export async function getPreviousPrompts(req, res) {
   res.json(response);
 }
 
-export async function storeTest(req, res) {
+export async function saveTest(req, res) {
   const response = {
     result: 0,
     data: {},
@@ -44,9 +44,11 @@ export async function storeTest(req, res) {
       return res.status(400).json(response);
     }
 
+    console.log(keyStrokes, prompt, duration);
+
     const accuracy = getAccuracy(keyStrokes, prompt);
     const wpm = getWPM(keyStrokes, duration);
-    const awpm = getAWPM(keyStrokes, duration, prompt);
+    const awpm = getAWPM(wpm, keyStrokes, duration, prompt);
 
     response.data.accuracy = accuracy;
     response.data.wpm = wpm;

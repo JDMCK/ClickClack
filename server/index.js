@@ -71,7 +71,7 @@ app.get(`${API_PREFIX}/users/get-previous-prompts/`, auth.middleware, async (req
 
 app.post(`${API_PREFIX}/test/save-test/`, auth.middleware, async (req, res) => {
   try {
-    await test.storeTest(req, res);
+    await test.saveTest(req, res);
   } catch (error) {
     serverError(res, error);
   }

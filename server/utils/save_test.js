@@ -30,28 +30,25 @@ export const getWPM = (keyStrokes, duration) => {
   return minutes > 0 ? Math.floor(wordsTyped / minutes) : 0;
 }
 
-export const getAWPM = (keyStrokes, duration, prompt) => {
-  const wpm = getWPM(keyStrokes, duration);
-  const minutes = duration / 60;
+export const getAWPM = (keyStrokes, prompt, duration) => {
+  const promptKeys = prompt.split('');
 
-  const finalTyped = [];
-  for (const key of keyStrokes) {
-    if (key === "Backspace") {
-      finalTyped.pop(); 
+  let offset = 0;
+  let correct = 0;
+  let error = 0;
+  for (let i = 0; i < keyStrokes.length; i++) {
+    if (keyStrokes[i] === 'Backspace') {
+      offset -= 2;
+      continue;
+    }
+    if (keyStrokes[i] === promptKeys[i + offset]) {
+      correct++;
     } else {
-      finalTyped.push(key); 
+      error++;
     }
   }
 
-  let uncorrectedErrors = 0;
-  for (let i = 0; i < Math.max(finalTyped.length, prompt.length); i++) {
-    if (finalTyped[i] !== prompt[i]) {
-      uncorrectedErrors++;
-    }
-  }
-
-  const awpm = Math.max(Math.floor(wpm - (uncorrectedErrors / minutes)), 0);
-  return awpm;
+  return Math.floor((correct / (5 * duration)) * 60);
 };
 
 
