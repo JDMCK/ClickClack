@@ -3,28 +3,18 @@
 import Scoreboard from '@/app/partials/scoreboard';
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-
-
+import { getUserProfile } from '../../../utils/api'
 
 export default function UserProfile() {
     const router = useRouter()
-    const [availableTokens, setAvailableTokens] = useState(null)
+    const [apiTokens, setApiTokens] = useState(0)
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const logOut = async () => {
         setLoading(true)
         try {
-            const response = await fetch("http://localhost:3001/api/v1/user/tokens", {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: 'include'
-            });
-            const res = await response.json();
-            //TODO: tell backend team about response structure
-            setAvailableTokens(res.data.availableTokens)
+            
         } catch (error) {
             console.log(error);
             setError(Error)
@@ -32,6 +22,27 @@ export default function UserProfile() {
             setLoading(false)
         }
     }
+    
+  useEffect(() =>{
+    // THIS IS IN HERE CUZ BREAK OTHERWISE - React moment
+    const fetchTokens = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await getUserProfile();
+        const trials = response.tokenCount
+        console.log("User has ", trials);
+        setApiTokens(trials)
+  
+      } catch (error) {
+        console.log("Error fetching the user's trials", error);
+        setError(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchTokens();
+  }, [])
 
     return (
         <div className="container">
@@ -44,7 +55,7 @@ export default function UserProfile() {
                 </div>
                 <div className='content'>
                     <h4>Control pannel</h4>
-                    <p>Remaining tokens:</p>
+                    <p>Remaining tokens: {apiTokens}</p>
                     <button type="submit" className="logout-btn" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
 
                 </div>
