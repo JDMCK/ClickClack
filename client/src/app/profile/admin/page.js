@@ -66,17 +66,17 @@ export default function UserProfile() {
     }, [])
 
     const logout = async () =>{
-    setLoading(true)
-    setError(null)
-    try{
-        const response = await logOutReq();
-        console.log(response);
-    }catch(error){
-        setError(error)
-    }finally{
-        setLoading(false)
-        router.push('/')
-    }
+        setLoading(true)
+        setError(null)
+        try{
+            const response = await logOutReq();
+            console.log(response);
+        }catch(error){
+            setError(error)
+        }finally{
+            setLoading(false)
+            router.push('/')
+        }
     }
 
     return (
@@ -130,8 +130,8 @@ export default function UserProfile() {
                 <div className='content'>
                     <h4>Control Pannel</h4>
                     <p>Remaining tokens: {apiTokens}</p>
-                    <button type="submit" className="logout-btn" disabled={loading}
-                    onClick={() => {logout()}}>{loading ? "Logging out..." : "Logout"}</button>
+                    <button type="submit" className="logout-btn" disabled={loading} onClick={() =>
+                         {logout()}}>{loading ? "Logging out..." : "Logout"}</button>
 
                 </div>
             </div>
