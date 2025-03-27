@@ -64,7 +64,7 @@ export default function Home() {
                         } else if (isLoggedin) {
                             router.push('/profile/user/');
                         } else {
-                            router.push('/403')
+                            router.push('/403') //TODO: This doesn't work rn
                         }
                     }}>Go</button>
                 </div>
