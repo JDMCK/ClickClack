@@ -104,11 +104,11 @@ export default function UserProfile() {
                             <td colSpan="3">Error loading data</td>
                         </tr>
                     ) : (
-                        apiTokens && apiTokens.length > 0 ? (
-                            apiTokens.map((user, index) => (
+                        usersData && usersData.length > 0 ? (
+                            usersData.map((user, index) => (
                                 <tr key={index}>
-                                    <td>{user.username}</td>
-                                    <td>{user.tokens}</td>
+                                    <td>{user.displayName}</td>
+                                    <td>{user.tokenCount}</td>
                                     <td>{user.role}</td>
                                 </tr>
                             ))
