@@ -2,13 +2,14 @@
 
 import Scoreboard from "@/app/partials/scoreboard";
 import "../../../styles/prompt-page.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function PromptPage() {
   const [difficulty, setDifficulty] = useState("easy");
   const [testDuration, setTestDuration] = useState("30");
   const [theme, setText] = useState("");
+  const [apiTokens, setApiTokens] = useState(0);
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -48,11 +49,33 @@ export default function PromptPage() {
     }
   };
 
+  useEffect(() =>{
+    // THIS IS IN HERE CUZ BREAK OTHERWISE - React moment
+    const fetchTokens = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await getUserProfile();
+        const trials = response.tokenCount
+        console.log("User has ", apiTokens);
+        setApiTokens(trials)
+  
+      } catch (error) {
+        console.log("Error fetching the user's trials", error);
+        setError(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchTokens();
+  }, [])
+
+
   return (
     <>
       <div className="prompt-container">
         <h1 className="prompt-title">Generate a Prompt</h1>
-
+        <p className="api-token-text">Prompts available: {apiTokens}</p>
         <form className="prompt-form" onSubmit={handleSubmit}>
           <label>Difficulty</label>
           <select
