@@ -4,6 +4,7 @@ import Scoreboard from "@/app/partials/scoreboard";
 import "../../../styles/prompt-page.css";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getUserProfile } from "@/utils/api";
 
 export default function PromptPage() {
   const [difficulty, setDifficulty] = useState("easy");
@@ -60,7 +61,7 @@ export default function PromptPage() {
         console.log("User has ", apiTokens);
         setApiTokens(trials)
   
-      } catch (error) {
+      }catch(error) {
         console.log("Error fetching the user's trials", error);
         setError(error)
       } finally {
