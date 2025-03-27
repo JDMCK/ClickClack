@@ -1,15 +1,42 @@
 import { NextResponse } from 'next/server';
+import { jwtVerify } from 'jose';
 
-export function middleware(request) {
+export async function middleware(request) {
   const url = request.nextUrl;
 
-  // Only run on the test page
+  // Typing test logic
   if (url.pathname.startsWith('/typing/test')) {
     const hasDataParam = url.searchParams.has('data');
-
     if (!hasDataParam) {
-      url.pathname = '/typing/prompt'; // redirect to homepage
-      url.search = ''; // clear query string
+      url.pathname = '/typing/prompt';
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
+  }
+
+  // Profile route protection
+  if (url.pathname === '/profile') {
+    const token = request.cookies.get('token')?.value;
+
+    if (!token) {
+      url.pathname = '/403';
+      return NextResponse.redirect(url);
+    }
+
+    try {
+      const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
+      const { payload } = await jwtVerify(token, SECRET_KEY);
+
+      if (payload.isAdmin) {
+        url.pathname = '/profile/admin';
+      } else {
+        url.pathname = '/profile/users';
+      }
+
+      return NextResponse.redirect(url);
+    } catch (err) {
+      console.error('JWT verification failed:', err);
+      url.pathname = '/403';
       return NextResponse.redirect(url);
     }
   }
@@ -17,7 +44,6 @@ export function middleware(request) {
   return NextResponse.next();
 }
 
-// Optional: Limit middleware to just that route
 export const config = {
-  matcher: ['/typing/test'],
+  matcher: ['/typing/test', '/profile/:path*'],
 };
