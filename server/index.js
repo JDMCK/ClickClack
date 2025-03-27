@@ -77,6 +77,14 @@ app.post(`${API_PREFIX}/tests/save-test/`, auth.middleware, async (req, res) => 
   }
 });
 
+app.get(`${API_PREFIX}/tests/get-tests/`, auth.middleware, async (req, res) => {
+  try {
+    await test.getTests(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
+});
+
 app.get(`${API_PREFIX}/users/profile/`, auth.middleware, async (req, res) => {
   try {
     await users.profile(req, res);
