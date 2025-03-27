@@ -149,14 +149,34 @@ button.logout-btn:hover{
   margin-right: 10px;
 }
 
+/* ---- Admin page specifics ---- */
+.user-table {
+  width: 60%;
+  border-collapse: collapse;
+  margin: 6px auto;
+}
+
+.user-table th {
+  background-color: var(--shadow-color);
+  color: var(--text);
+  padding: 4px;
+}
+.user-table th, .user-table td {
+  border: 1px solid var(--primary);
+  padding: 4px;
+  text-align: center;
+}
+
+
+
 /* ---- Scores */
-.score-table, .user-table {
+.score-table {
   width: 60%;
   border-collapse: collapse;
   /* border-radius: 10px; */
   margin: 6px auto;
 }
-.score-table th, .score-table td, .user-table th, .user-table td {
+.score-table th, .score-table td {
   border: 1px solid var(--primary);
   padding: 4px;
   text-align: center;
@@ -175,8 +195,9 @@ button.logout-btn:hover{
 
 /* ---- Error pages ---- */
 .not-found, .forbidden {
-  display: flex;
+  background-color: var(--secondary);
+  margin: 10% 20%;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  border-radius: 4px;
 }

@@ -26,7 +26,6 @@ export async function middleware(request) {
     try {
       const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
       const { payload } = await jwtVerify(token, SECRET_KEY);
-      // console.log(payload)
 
       if (payload.isAdmin) {
         url.pathname = '/profile/admin';
