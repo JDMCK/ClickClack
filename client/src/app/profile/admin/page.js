@@ -84,7 +84,7 @@ export default function UserProfile() {
         <div className="container">
             <h1>You're an Admin Duck, {displayName}!</h1>
 
-            <h2>Users</h2>
+            <h2>All Ducklings (users)</h2>
             <div className='content-box'>
             <table className="user-table">
                 <thead>
