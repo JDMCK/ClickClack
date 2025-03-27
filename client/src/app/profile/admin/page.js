@@ -2,18 +2,16 @@
 
 import Scoreboard from '@/app/partials/scoreboard';
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { getUserProfile } from '../../../utils/api'
-import Scoreboard from '@/app/partials/scoreboard'
-import 'dotenv/config'
-
+import { logOutReq } from '../../../utils/api';
 
 export default function UserProfile() {
   const router = useRouter()
   const [error, setError] = useState(null);
-    const [displayName, setDisplayName] = useState(null)
-    const [apiTokens, setApiTokens] = useState(0)
-    const [usersData, setUsersData] = useState([]);
+  const [displayName, setDisplayName] = useState(null)
+  const [apiTokens, setApiTokens] = useState(0)
+  const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // TODO: implement log out req and function to handle in backend
@@ -39,7 +37,7 @@ export default function UserProfile() {
             const res = await response.json();
             setUsersData(res.data)
         }catch(error){
-            consolel.log("Error fetching data: ", error);
+            console.log("Error fetching data: ", error);
             setError(error);
         }finally{
             setLoading(false);
@@ -47,28 +45,39 @@ export default function UserProfile() {
     }
 
 
-      useEffect(() =>{
-        const fetchProfile = async () => {
-          setLoading(true)
-          setError(null)
-          try {
-            const response = await getUserProfile();
-            setApiTokens(response.tokenCount);
-            setDisplayName(response.displayName);
-      
-          } catch (error) {
-            console.log("Error fetching profile", error);
-            setError(error)
-          } finally {
-            setLoading(false)
-          }
-        }
-        fetchProfile();
-        fetchUsersData();
-      }, [])
-
-
+    useEffect(() =>{
+    const fetchProfile = async () => {
+        setLoading(true)
+        setError(null)
+        try {
+        const response = await getUserProfile();
+        setApiTokens(response.tokenCount);
+        setDisplayName(response.displayName);
     
+        } catch (error) {
+        console.log("Error fetching profile", error);
+        setError(error)
+        } finally {
+        setLoading(false)
+        }
+    }
+    fetchProfile();
+    fetchUsersData();
+    }, [])
+
+    const logout = async () =>{
+    setLoading(true)
+    setError(null)
+    try{
+        const response = await logOutReq();
+        console.log(response);
+    }catch(error){
+        setError(error)
+    }finally{
+        setLoading(false)
+        router.push('/')
+    }
+    }
 
     return (
         <>
@@ -119,9 +128,10 @@ export default function UserProfile() {
                     <button onClick={() => { router.push('/typing/prompt'); }}>Start</button>
                 </div>
                 <div className='content'>
-                    <h4>Control pannel</h4>
+                    <h4>Control Pannel</h4>
                     <p>Remaining tokens: {apiTokens}</p>
-                    <button type="submit" className="logout-btn" disabled={loading}>{loading ? "Logging out..." : "Logout"}</button>
+                    <button type="submit" className="logout-btn" disabled={loading}
+                    onClick={() => {logout()}}>{loading ? "Logging out..." : "Logout"}</button>
 
                 </div>
             </div>

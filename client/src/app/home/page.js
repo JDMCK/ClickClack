@@ -8,6 +8,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
 
   const checkAdmin = async () => {
     setLoading(true);
@@ -41,7 +42,7 @@ export default function Home() {
       checkAdmin();
   }, []);
 
-  const router = useRouter();
+
   return (
     <div className="container">
       <h1>Ready for some ducktyping?</h1>
