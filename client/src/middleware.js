@@ -28,7 +28,7 @@ export async function middleware(request) {
       const { payload } = await jwtVerify(token, SECRET_KEY);
       // console.log(payload)
 
-      if (payload.isAdmin == "admin") {
+      if (payload.isAdmin) {
         url.pathname = '/profile/admin';
       } else {
         url.pathname = '/profile/user';

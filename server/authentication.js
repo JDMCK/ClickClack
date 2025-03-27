@@ -140,7 +140,7 @@ export async function login(req, res) {
 
   response.data.isAdmin = user.role === 'admin';
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
-  const token = jwt.sign({ userid: user.userid, isAdmin: user.role }, SECRET_KEY, { expiresIn: "24h" });
+  const token = jwt.sign({ userid: user.userid, isAdmin: user.role == "admin" }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
   setJWTCookie(res, token);
   
@@ -173,7 +173,7 @@ export async function isAuthenticated(req, res) {
     const { userid, isAdmin } = jwt.verify(token, SECRET_KEY);
     response.data.loggedin = true;
     response.data.userid = userid;
-    response.data.isAdmin = isAdmin == "admin" ? true : false
+    response.data.isAdmin = isAdmin == "admin"
     response.message = lang("LoginUserLoggedIn");
   } catch (error) {
     response.result = 1;
