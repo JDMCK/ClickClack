@@ -32,7 +32,7 @@ export async function signup(req, res) {
   const validation = schema.validate(req.body);
   if (validation.error !== undefined) {
     response.result = 1;
-    response.message = lang("BadRequest");
+    response.message = lang("SignupFailure");
     response.error = validation.error.details;
     res.status(400).json(response);
     return;
@@ -68,6 +68,12 @@ export async function signup(req, res) {
       VALUES(${req.body.display_name}, ${req.body.email}, ${hash}, 'user')
       RETURNING userid;
     `;
+
+    await sql`
+      INSERT INTO ai_usage (userid, remaining_tokens)
+      VALUES(${userid}, 20);
+    `;
+
     response.data.userid = userid;
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
     const token = jwt.sign({userid, isAdmin: false }, SECRET_KEY, { expiresIn: "24h" });
@@ -199,6 +205,17 @@ export function middleware(req, res, next) {
     res.status(403).json({ message: lang("UserUnauthorized") });
     return;
   }
+}
+
+// Must be called after middlware above
+export function adminMiddleware(req, res, next) {
+  if (req.isAdmin) {
+    next();
+    return;
+  }
+
+  res.status(403).json({ message: lang("UserUnauthorized") });
+  return;
 }
 
 function setJWTCookie(res, token) {
