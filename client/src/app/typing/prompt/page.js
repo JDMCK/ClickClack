@@ -69,7 +69,7 @@ export default function PromptPage() {
       }
     }
     fetchTokens();
-  }, [])
+  }, [apiTokens])
 
 
   return (
