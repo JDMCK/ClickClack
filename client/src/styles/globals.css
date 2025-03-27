@@ -150,13 +150,13 @@ button.logout-btn:hover{
 }
 
 /* ---- Scores */
-.score-table {
+.score-table, .user-table {
   width: 60%;
   border-collapse: collapse;
   /* border-radius: 10px; */
   margin: 6px auto;
 }
-.score-table th, .score-table td {
+.score-table th, .score-table td, .user-table th, .user-table td {
   border: 1px solid var(--primary);
   padding: 4px;
   text-align: center;
