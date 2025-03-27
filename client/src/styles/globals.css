@@ -196,9 +196,25 @@ button.logout-btn:hover{
 
 /* ---- Error pages ---- */
 .not-found, .forbidden {
-  background-color: var(--secondary);
+  background-color: var(--shadow-color);
   margin: 10% 20%;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 8px;
+}
+
+.not-found-img{
+  width: 60%;
+  height: 30%;
+  clip-path: circle();
+}
+
+.go-back {
+  background-color: var(--secondary);
+  color: var(--text);
+  margin: 10px;
+}
+
+.go-back:hover {
+  background-color: var(--accent);
 }
