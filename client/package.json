@@ -16,13 +16,11 @@
     "next": "15.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
-    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@eslint/eslintrc": "^3",
     "eslint": "^9",
-    "eslint-config-next": "15.2.2"
     "eslint-config-next": "15.2.2"
   }
 }
