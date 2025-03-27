@@ -1,21 +1,22 @@
 "use client"
 
+import Scoreboard from '@/app/partials/scoreboard';
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { getUserProfile } from '../../../utils/api'
 import Scoreboard from '@/app/partials/scoreboard'
 import 'dotenv/config'
 
 
 export default function UserProfile() {
-    const router = useRouter()
-    const [error, setError] = useState(null);
+  const router = useRouter()
+  const [error, setError] = useState(null);
     const [displayName, setDisplayName] = useState(null)
     const [apiTokens, setApiTokens] = useState(0)
     const [usersData, setUsersData] = useState([]);
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    // TODO: implement log out req and function to handle in backend
+  // TODO: implement log out req and function to handle in backend
 
     /**
      * Fetch the Users data for the Admin dash board
