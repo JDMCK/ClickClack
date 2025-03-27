@@ -13,7 +13,7 @@ export async function getPreviousPrompts(req, res) {
 
   try {
     const result = await sql`
-      SELECT text, difficulty, theme FROM prompts
+      SELECT promptid, text, difficulty, theme FROM prompts
       WHERE userid = ${req.userid};    
     `;
     response.data = result;

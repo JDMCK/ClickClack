@@ -162,14 +162,12 @@ export default function TestPage() {
       if (!res.ok) {
         throw new Error("Failed to save test");
       }
-
-      const data = await res.json();
   } catch (error) {
     console.log(error.message);
   } finally {
     router.push('/profile/user');
   }
-  }, [prompt, promptid, router]);
+  }, [prompt, promptid, router, testDurationSeconds]);
   
   const onCancel = useCallback(() => {
     console.log("Test cancelled.");
