@@ -15,7 +15,8 @@ const languageKeys = {
   "UserUnauthorizedNoToken": "User has no authorization token.",
   "UserUnauthorized": "User is unauthorized.",
   "PromptsRetrievalFailure": "Failed to retrieve prompts.",
-}
+  "ClearedCookie": "Cookie successfully cleared.",
+};
 
 export default function lang(key, ...args) {
   if (!(key in languageKeys)) {

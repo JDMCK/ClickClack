@@ -186,6 +186,13 @@ export async function isAuthenticated(req, res) {
   res.json(response);
 }
 
+export async function logout(req, res) {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.ENVIRONMENT !== "dev",
+  });
+  res.json({ message: lang("ClearedCookie") });
+}
 
 export function middleware(req, res, next) {
   try {

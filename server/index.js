@@ -60,6 +60,14 @@ app.get(`${API_PREFIX}/auth/me/`, async (req, res) => {
   }
 });
 
+app.get(`${API_PREFIX}/auth/logout/`, async (req, res) => {
+  try {
+    await auth.logout(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
+});
+
 // -------------------- User endpoints --------------------
 app.get(`${API_PREFIX}/users/get-previous-prompts/`, auth.middleware, async (req, res) => {
   try {
