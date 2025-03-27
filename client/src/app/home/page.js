@@ -39,34 +39,38 @@ export default function Home() {
   }
 
   useEffect(() => {
-      checkAdmin();
+    checkAdmin();
   }, []);
 
 
   return (
-    <div className="container">
+    <>
+    <div className='container banner'>
       <h1>Ready for some ducktyping?</h1>
       {/* We should make this be the landing page after M2 submission*/}
-      <p>// This really should just be the landing page...</p>
-      {/* <button>Log in</button>
+      <p>This really should just be the landing page...</p>
+    </div>
+      <div className="container">
+        {/* <button>Log in</button>
       <button>Sign up</button> */}
-      <div className='content-box'>
-        <div className='content' >
+        <div className='content-box'>
+          <div className='content' >
             <h2>Start another run?</h2>
             <p>Generate new text or use a previous one.</p>
             <button onClick={() => { router.push('/typing/prompt'); }}>Start</button>
-        </div>
-        <div className='content' >
-          <h2>{isAdmin ? 'Admin' : 'Profile'}</h2>
-          <button onClick={() => {
-            if (isLoggedin) {
+          </div>
+          <div className='content' >
+            <h2>{isAdmin ? 'Admin' : 'Profile'}</h2>
+            <button onClick={() => {
+              if (isLoggedin) {
                 router.push('/profile');
-            } else {
+              } else {
                 router.push('/403')
-            }
-          }}>Go</button>
+              }
+            }}>Go</button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

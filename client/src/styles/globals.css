@@ -116,6 +116,20 @@ button.logout-btn:hover{
   border-radius: 10px;
 }
 
+.banner{
+  color: var(--text);
+  margin: 3%;
+  padding: 10% auto;
+  background-color: var(--shadow-color);
+  /* TODO: Decide what to do with this? */
+  /* background-image: url("/duck-couple.JPG");
+  width: 80%;
+  height: 100%;
+  background-size: cover;
+  background-position: center; */
+  border-radius: 10px;
+}
+
 
 /*---- Navbar  ----*/
 .navbar {
