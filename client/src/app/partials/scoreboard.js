@@ -26,7 +26,6 @@ export default function Scoreboard() {
       // const response = await getTests()
 
       const fetched = await response.json()
-      //TODO: tell backend to implement this endpoint and how structure scores
       setScores(fetchScores.data.scores)
     } catch (error) {
       console.error("Error:", error);
