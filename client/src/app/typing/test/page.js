@@ -173,7 +173,7 @@ export default function TestPage() {
   } catch (error) {
     console.log(error.message);
   } finally {
-    router.push('/profile/user');
+    router.push('/profile/');
   }
   }, [prompt, promptid, router, testDurationSeconds]);
   

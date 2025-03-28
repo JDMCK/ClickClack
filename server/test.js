@@ -17,6 +17,7 @@ export async function getPreviousPrompts(req, res) {
       WHERE userid = ${req.userid};    
     `;
     response.data = result;
+    console.log(result)
   } catch (error) {
     response.result = 1;
     response.message = lang("PromptsRetrievalFailure");
@@ -80,10 +81,20 @@ export async function getTests(req, res) {
     const userid = req.userid;
 
     const tests = await sql`
-      SELECT testid, promptid, wpm, awpm, accuracy, date
+      SELECT DISTINCT 
+      tests.testid, 
+      tests.promptid, 
+      tests.wpm, 
+      tests.awpm, 
+      tests.accuracy, 
+      tests.date, 
+      prompts.text, 
+      prompts.theme, 
+      prompts.difficulty
       FROM tests
-      WHERE userid = ${userid}
-      ORDER BY date DESC;
+      JOIN prompts ON tests.promptid = prompts.promptid
+      WHERE tests.userid = ${userid}
+      ORDER BY tests.date DESC;
     `;
 
     response.data.tests = tests;
