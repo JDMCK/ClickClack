@@ -60,7 +60,7 @@ export default function Home() {
             <button onClick={() => { router.push('/typing/prompt'); }}>Start</button>
           </div>
           <div className='content' >
-            <h2>{isAdmin ? 'Admin' : 'Profile'}</h2>
+            <h2>{isAdmin ? 'Admin Profile' : 'Profile'}</h2>
             <button onClick={() => {
               if (isLoggedin) {
                 router.push('/profile');
