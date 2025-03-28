@@ -14,8 +14,6 @@ export default function UserProfile() {
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // TODO: implement log out req and function to handle in backend
-
     /**
      * Fetch the Users data for the Admin dash board
      */
