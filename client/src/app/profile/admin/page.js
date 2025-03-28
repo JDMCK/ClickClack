@@ -14,8 +14,6 @@ export default function UserProfile() {
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // TODO: implement log out req and function to handle in backend
-
     /**
      * Fetch the Users data for the Admin dash board
      */
@@ -82,7 +80,7 @@ export default function UserProfile() {
     return (
         <>
         <div className="container">
-            <h1><em>You're an Admin Duck, {displayName}!</em></h1>
+            <h1><em>You&apos;re an Admin Duck, {displayName}!</em></h1>
 
             <h2>All Ducklings (users)</h2>
             <div className='content-box'>
