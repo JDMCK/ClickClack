@@ -12,6 +12,7 @@ export default function PromptPage() {
   const [theme, setText] = useState("");
   const [apiTokens, setApiTokens] = useState(0);
   const [response, setResponse] = useState("");
+  const [prevPrompts, setPrevPrompts] = useState([])
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -50,7 +51,33 @@ export default function PromptPage() {
     }
   };
 
-  useEffect(() =>{
+  const fetchPrevPrompts = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/users/get-previous-prompts/", {
+        credentials: "include",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch previous prompts.");
+      }
+
+      const res = await response.json();
+      console.log("Previous prompts:", res.data);
+    } catch (error) {
+      console.error("Error fetching previous prompts:", error);
+      setError(error);
+    }finally{
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
     // THIS IS IN HERE CUZ BREAK OTHERWISE - React moment
     const fetchTokens = async () => {
       setLoading(true)
@@ -58,10 +85,9 @@ export default function PromptPage() {
       try {
         const response = await getUserProfile();
         const trials = response.tokenCount
-        console.log("User has ", apiTokens);
         setApiTokens(trials)
-  
-      }catch(error) {
+
+      } catch (error) {
         console.log("Error fetching the user's trials", error);
         setError(error)
       } finally {
@@ -70,6 +96,12 @@ export default function PromptPage() {
     }
     fetchTokens();
   }, [apiTokens])
+
+  useEffect(() => {
+    fetchPrevPrompts();
+  }, [prevPrompts])
+
+
 
 
   return (
@@ -142,7 +174,49 @@ export default function PromptPage() {
           </select>
         </form>
       </div>
-      <Scoreboard />
+      {/* <Scoreboard /> */}
+      <div className="container">
+        <h2>Previous Prompts</h2>
+        <table className="previous-prompts ">
+          <thead>
+            <tr>
+              <th>Prompt ID</th>
+              <th>Text</th>
+              <th>Difficulty</th>
+              <th>Theme</th>
+            </tr>
+          </thead>
+          <tbody>
+             {loading ? (
+            <tr>
+              <td colSpan="6">Loading...</td>
+            </tr>
+          ) : error ? (
+            <tr>
+              <td colSpan="6">Error: {error}</td>
+            </tr>
+          ) : prevPrompts.length === 0 ? (
+            <tr>
+              <td colSpan="6">No prompts available...</td>
+            </tr>
+          ) : (
+            prevPrompts.map((prompt) => (
+              <tr
+              // TODO: test this later when we have tests in DB
+                key={prompt.promptid}
+                onClick={() => setText(prompt.text)}
+                className="prompt-row"
+              >
+                <td>{prompt.promptid}</td>
+                <td>{prompt.text}</td>
+                <td>{prompt.difficulty}</td>
+                <td>{prompt.theme}</td>
+              </tr>
+            ))
+          )}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }
