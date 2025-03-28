@@ -51,7 +51,7 @@ export async function getAdmin(req, res) {
       FROM users
       JOIN ai_usage ON users.userid = ai_usage.userid;
     `;
-    console.log(result);
+    // console.log(result);
     response.data = result;
   } catch (error) {
     response.result = 1;

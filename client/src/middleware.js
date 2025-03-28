@@ -30,7 +30,7 @@ export async function middleware(request) {
       if (payload.isAdmin) {
         url.pathname = '/profile/admin';
       } else {
-        url.pathname = '/profile/users';
+        url.pathname = '/profile/user';
       }
 
       return NextResponse.redirect(url);

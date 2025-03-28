@@ -17,11 +17,11 @@ export default function Navbar () {
     return (
         <nav className='navbar'>
             <div className='nav-logo'>
-                {/* TODO: Add the logo here AND fix the profile Link*/}
+                {/* TODO: Add the logo here*/}
                 <Link href="/home">ClickClack</Link> 
             </div>
             <div className='nav-btns'>
-                <Link href="/profile/user">Profile</Link> 
+                <Link href="/profile">Profile</Link> 
                 <button onClick={toggleTheme}>{theme === 'light' ? 'Dark' : 'Light'}</button>
             </div>
         </nav>
