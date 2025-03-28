@@ -40,18 +40,22 @@ function Timer({ duration, onFinish, onCancel, onTick }) {
         }
         if (next <= 0) {
           clearInterval(timerRef.current);
-          if (onFinish) {
-            setTimeout(onFinish, 0);
-          }
           return 0;
         }
         return next;
       });
     }, 1000);
+  
     return () => {
       clearInterval(timerRef.current);
     };
-  }, [onFinish, onCancel, onTick]);
+  }, [onTick]);
+  
+  useEffect(() => {
+    if (secondsLeft <= 0 && onFinish) {
+      onFinish();
+    }
+  }, [secondsLeft, onFinish]);
   return <div className='timer'>{secondsLeft}</div>;
 }
 
@@ -64,6 +68,7 @@ export default function TestPage() {
   const testDurationSeconds = params.testDuration;
 
   const keysRef = useRef([]);
+  const finishedRef = useRef(false);
   const [displayKeys, setDisplayKeys] = useState([]);
   const [currentRow, setCurrentRow] = useState(0);
   const [testActive, setTestActive] = useState(false);
@@ -138,9 +143,12 @@ export default function TestPage() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [displayKeys, promptRows, handleKeyDown]);
+  }, [handleKeyDown]);
 
   const onFinish = useCallback(async () => {
+    if (finishedRef.current) return;
+    finishedRef.current = true;
+    
     setTestActive(false);
 
     const payload = {
@@ -222,7 +230,7 @@ export default function TestPage() {
           </p>
 
           {/* Next rows to type */}
-          {promptRows.slice(currentRow + 1).map((row, index) => 
+          {promptRows.slice(currentRow + 1, currentRow + 2).map((row, index) => 
             <p
               key={index}
               className='typing-row'

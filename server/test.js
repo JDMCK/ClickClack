@@ -46,8 +46,8 @@ export async function saveTest(req, res) {
 
     const accuracy = getAccuracy(keyStrokes, prompt);
     const wpm = getWPM(keyStrokes, duration);
-    const awpm = getAWPM(keyStrokes, duration, prompt);
-    const date = new Date().toISOString().split('T')[0]; 
+    const awpm = getAWPM(keyStrokes, prompt, duration);
+    const date = new Date().toISOString(); 
     const userid = req.userid;
 
     await sql`

@@ -53,30 +53,41 @@ export async function generateTestPrompt(req, res) {
 
   // make call to gemini
   try {
-    // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
-    // const model = genAI.getGenerativeModel({
-    //   model: "gemini-2.0-flash",
-    //   systemInstruction: preamble,
-    // });
-    // const result = await model.generateContent(JSON.stringify(req.body));
-    // const text = result.response.candidates[0].content.parts[0].text;
-    const text = `The vast ocean stretched endlessly before her, its deep blue waves shimmering under the golden sun.\n
-Seagulls called above as she took a deep breath of the salty air.\n
-Each crashing wave told a different story, whispering secrets of the past.\n
-She closed her eyes, feeling the cool breeze against her face, and imagined distant lands beyond the horizon.\n
-The rhythmic sound of the tide was calming, a reminder that nature moves at its own pace.\n
-No rush, no urgency—just the endless cycle of the sea, carrying dreams and mysteries with every ebb and flow.
-`;
-    const fake_prompt_id = 1;
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+      systemInstruction: preamble,
+    });
+    const result = await model.generateContent(JSON.stringify(req.body));
+    const text = result.response.candidates[0].content.parts[0].text;
+//     const text = `The vast ocean stretched endlessly before her, its deep blue waves shimmering under the golden sun.\n
+// Seagulls called above as she took a deep breath of the salty air.\n
+// Each crashing wave told a different story, whispering secrets of the past.\n
+// She closed her eyes, feeling the cool breeze against her face, and imagined distant lands beyond the horizon.\n
+// The rhythmic sound of the tide was calming, a reminder that nature moves at its own pace.\n
+// No rush, no urgency—just the endless cycle of the sea, carrying dreams and mysteries with every ebb and flow.
+// `;
+//     const fake_prompt_id = 1;
     
+    // decrement users api tokens
+    await sql`
+      UPDATE ai_usage
+      SET remaining_tokens = CASE
+          WHEN remaining_tokens > 0 THEN remaining_tokens - 1
+          ELSE 0
+      END
+      WHERE userid = ${req.userid};    
+    `;
+
     // store prompt in db
-    const promptid = await sql`
+    const [{ promptid }] = await sql`
       INSERT INTO prompts (userid, text, theme, difficulty)
       VALUES(${req.userid}, ${text}, ${req.body.theme}, ${req.body.difficulty})
       RETURNING promptid;
     `;
+
     response.data.text = text;
-    response.data.promptid = fake_prompt_id;
+    response.data.promptid = promptid;
   } catch (error) {
     console.error(error);
     response.result = 1;

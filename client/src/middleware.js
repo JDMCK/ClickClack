@@ -4,6 +4,22 @@ import { jwtVerify } from 'jose';
 export async function middleware(request) {
   const url = request.nextUrl;
 
+  // Catches non logged in people
+  if (
+    url.pathname !== '/' &&
+    !url.pathname.startsWith('/auth') &&
+    !url.pathname.startsWith('/_next') &&
+    !url.pathname.startsWith('/favicon.ico')
+  ) {
+    const token = request.cookies.get('token')?.value;
+  
+    if (!token) {
+      url.pathname = '/';
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
+  }
+  
   // Typing test logic
   if (url.pathname.startsWith('/typing/test')) {
     const hasDataParam = url.searchParams.has('data');
@@ -45,5 +61,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/typing/test', '/profile/:path*'],
+  matcher: ['/:path*'],
 };

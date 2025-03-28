@@ -36,15 +36,15 @@
 }
 
 .typed-correct {
-    color: gray;
+    color: var(--typing-correct);
 }
 
 .typed-error {
-    color: lightcoral;
+    color: var(--typing-error);
 }
 
 .prompt {
-    color: darkslategray;
+    color: var(--typing-untyped);
 }
 
 .cursor {
