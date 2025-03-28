@@ -1,5 +1,5 @@
 import { getTests } from "@/utils/api";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 
@@ -13,7 +13,7 @@ export default function Scoreboard() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:3001/api/v1/tests/get-tests?limit=5", {
+      const response = await fetch("http://localhost:3001/api/v1/tests/get-tests", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +26,8 @@ export default function Scoreboard() {
       // const response = await getTests()
 
       const fetched = await response.json()
-      setScores(fetchScores.data.scores)
+      setScores(fetched.data.tests)
+      console.log(fetched.data.tests);
     } catch (error) {
       console.error("Error:", error);
       setError(error.message);
@@ -34,6 +35,10 @@ export default function Scoreboard() {
       setLoading(false)
     }
   }
+
+  useEffect(()=>{
+    fetchScores()
+  }, []);
 
   return (
     <div className="scoreboard container">
@@ -43,11 +48,11 @@ export default function Scoreboard() {
         <thead>
           <tr>
             <th>Prompt ID</th>
+            <th>Text</th> 
             <th>Date</th>
             <th>WPM</th>
             <th>AWPM</th>
             <th>Difficulty</th>
-            <th>Time</th>
           </tr>
         </thead>
         <tbody>
@@ -64,14 +69,18 @@ export default function Scoreboard() {
               <td colSpan="6">No scores available...</td>
             </tr>
           ) : (
-            scores.map((score) => (
-              <tr key={score.promptId}>
-                <td>{score.promptId}</td>
+            scores.map((score, index) => (
+              <tr key={score.promptid + index}>
+                <td>{score.promptid}</td>
+                <td>
+                  {score.text.length > 20
+                    ? `${score.text.slice(0, 50 )}...`
+                    : score.text}
+                </td>
                 <td>{new Date(score.date).toLocaleDateString()}</td>
                 <td>{score.wpm}</td>
                 <td>{score.awpm}</td>
                 <td>{score.difficulty}</td>
-                <td>{score.time}</td>
               </tr>
             ))
           )}

@@ -80,14 +80,25 @@ export async function getTests(req, res) {
     const userid = req.userid;
 
     const tests = await sql`
-      SELECT testid, promptid, wpm, awpm, accuracy, date
+      SELECT 
+      tests.testid, 
+      tests.promptid, 
+      tests.wpm, 
+      tests.awpm, 
+      tests.accuracy, 
+      tests.date, 
+      prompts.text, 
+      prompts.theme, 
+      prompts.difficulty
       FROM tests
-      WHERE userid = ${userid}
-      ORDER BY date DESC;
+      JOIN prompts ON tests.promptid = prompts.promptid
+      WHERE tests.userid = ${userid}
+      ORDER BY tests.date DESC;
     `;
 
     response.data.tests = tests;
     response.message = "Tests retrieved successfully.";
+    console.log(response)
     res.json(response);
   } catch (error) {
     console.error("Error retrieving tests:", error);
