@@ -208,10 +208,13 @@ export default function PromptPage() {
               <td colSpan="6">No prompts available...</td>
             </tr>
           ) : (
-            prevPrompts.map((prompt) => (
+            prevPrompts.map((prompt, index) => (
+              /**
+               * This is for cases when the user used the same propmt as it might result in same keys in `promptid`
+               * Note this isn't best practice!
+               */
               <tr
-              // TODO: test this later when we have tests in DB
-                key={prompt.promptid}
+                key={prompt.promptid + index}
                 onClick={() => {
                   setResponse(prompt)
                 }}
