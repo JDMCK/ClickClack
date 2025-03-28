@@ -17,6 +17,7 @@ export async function getPreviousPrompts(req, res) {
       WHERE userid = ${req.userid};    
     `;
     response.data = result;
+    console.log(result)
   } catch (error) {
     response.result = 1;
     response.message = lang("PromptsRetrievalFailure");
@@ -98,7 +99,6 @@ export async function getTests(req, res) {
 
     response.data.tests = tests;
     response.message = "Tests retrieved successfully.";
-    console.log(response)
     res.json(response);
   } catch (error) {
     console.error("Error retrieving tests:", error);

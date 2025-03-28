@@ -28,7 +28,7 @@ export default function PromptPage() {
     };
 
     try {
-      const res = await fetch("http://localhost:3001/api/v1/ai/generate-test-prompt/", {
+      const response = await fetch("http://localhost:3001/api/v1/ai/generate-test-prompt/", {
         credentials: "include",
         method: "POST",
         headers: {
@@ -37,12 +37,13 @@ export default function PromptPage() {
         body: JSON.stringify(requestData),
       });
 
-      if (!res.ok) {
+      if (!response.ok) {
         throw new Error("Failed to generate prompt.");
       }
 
-      const data = await res.json();
-      console.log("AI generated text:", data.data);
+      const res = await response.json();
+      console.log("AI generated text:", res.data);
+      setPrevPrompts(res.data)
       setApiTokens(prev => prev - 1)
       setResponse(data.data);
     } catch (error) {
@@ -69,11 +70,13 @@ export default function PromptPage() {
       }
 
       const res = await response.json();
-      console.log("Previous prompts:", res.data);
+      setPrevPrompts(res.data)
+      console.log("Previous prompts 🍉:", res.data);
     } catch (error) {
       console.error("Error fetching previous prompts:", error);
       setError(error);
     }finally{
+      console.log("Previous prompts:", prevPrompts);
       setLoading(false)
     }
   }
@@ -100,7 +103,7 @@ export default function PromptPage() {
 
   useEffect(() => {
     fetchPrevPrompts();
-  }, [prevPrompts])
+  }, [])
 
 
 
@@ -145,7 +148,7 @@ export default function PromptPage() {
         {response && (
           <div className="prompt-response">
             <h3>Generated Prompt:</h3>
-            <p>{response.text}</p>
+            <p id="response-text">{response.text}</p>
             <Link
               href={{
                 pathname: "/typing/test",
@@ -181,7 +184,7 @@ export default function PromptPage() {
           </select>
         </form>
       </div>
-      {/* <Scoreboard /> */}
+      {/* Previous user propmts */}
       <div className="container">
         <h2>Previous Prompts</h2>
         <table className="previous-prompts ">
@@ -211,11 +214,15 @@ export default function PromptPage() {
               <tr
               // TODO: test this later when we have tests in DB
                 key={prompt.promptid}
-                onClick={() => setText(prompt.text)}
+                onClick={() => {
+                  setResponse(prompt)
+                }}
                 className="prompt-row"
               >
                 <td>{prompt.promptid}</td>
-                <td>{prompt.text}</td>
+                <td>
+                  {prompt.text.length > 20 ? `${prompt.text.slice(0, 50)}...`: prompt.text}
+                  </td>
                 <td>{prompt.difficulty}</td>
                 <td>{prompt.theme}</td>
               </tr>
