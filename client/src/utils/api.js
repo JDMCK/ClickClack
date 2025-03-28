@@ -22,6 +22,23 @@ export async function getUserProfile(){
 }
 
 
+export async function getTests() {
+    // const endpoint = limit > 0 ? `get-tests?limit=${limit}` : "get-tests"
+    const response = await fetch(`http://localhost:3001/api/v1/tests/get-tests/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch scores.");
+      }
+      const fetched = await response.json()
+    
+}
+
+
 export async function logOutReq(){
     const response = await fetch(`http://localhost:3001/api/v1/auth/logout/`, {
         credentials: "include",
