@@ -82,7 +82,7 @@ export default function UserProfile() {
     return (
         <>
         <div className="container">
-            <h1><em>You're an Admin Duck, {displayName}!</em></h1>
+            <h1><em>You&apos;re an Admin Duck, {displayName}!</em></h1>
 
             <h2>All Ducklings (users)</h2>
             <div className='content-box'>
