@@ -80,7 +80,7 @@ export async function getTests(req, res) {
     const userid = req.userid;
 
     const tests = await sql`
-      SELECT 
+      SELECT DISTINCT 
       tests.testid, 
       tests.promptid, 
       tests.wpm, 
