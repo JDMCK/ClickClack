@@ -43,14 +43,14 @@ export default function PromptPage() {
 
       const res = await response.json();
       console.log("AI generated text:", res.data);
-      setPrevPrompts(res.data)
+      setResponse(res.data)
       setApiTokens(prev => prev - 1)
-      setResponse(data.data);
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
+    fetchPrevPrompts();
   };
 
   const fetchPrevPrompts = async () => {
@@ -71,12 +71,10 @@ export default function PromptPage() {
 
       const res = await response.json();
       setPrevPrompts(res.data)
-      console.log("Previous prompts 🍉:", res.data);
     } catch (error) {
       console.error("Error fetching previous prompts:", error);
       setError(error);
     }finally{
-      console.log("Previous prompts:", prevPrompts);
       setLoading(false)
     }
   }
