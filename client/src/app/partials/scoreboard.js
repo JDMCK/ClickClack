@@ -1,4 +1,6 @@
+import { getTests } from "@/utils/api";
 import { useState } from "react"
+
 
 
 export default function Scoreboard() {
@@ -21,6 +23,8 @@ export default function Scoreboard() {
       if (!response.ok) {
         throw new Error("Failed to fetch scores.");
       }
+      // const response = await getTests()
+
       const fetched = await response.json()
       //TODO: tell backend to implement this endpoint and how structure scores
       setScores(fetchScores.data.scores)
