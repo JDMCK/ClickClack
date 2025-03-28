@@ -52,6 +52,9 @@ html, body {
   --accent: #e0ca65;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --inset-shadow-color: rgba(0, 0, 0, 0.05);
+  --typing-error: lightcoral;
+  --typing-untyped: darkslategray;
+  --typing-correct: gray;
 }
 
 :root[data-theme="dark"] {
@@ -62,6 +65,9 @@ html, body {
   --accent: #98821f;
   --shadow-color: rgba(255, 255, 255, 0.1);
   --inset-shadow-color: rgba(255, 255, 255, 0.05);
+  --typing-error: lightcoral;
+  --typing-untyped: white;
+  --typing-correct: gray;
 }
 
 /*---- Global ----*/
