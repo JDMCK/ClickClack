@@ -25,7 +25,6 @@ export default function Scoreboard() {
 
       const fetched = await response.json()
       setScores(fetched.data.tests)
-      console.log(fetched.data.tests);
     } catch (error) {
       console.error("Error:", error);
       setError(error.message);

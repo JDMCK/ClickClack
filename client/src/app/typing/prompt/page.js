@@ -42,7 +42,7 @@ export default function PromptPage() {
       }
 
       const res = await response.json();
-      console.log("AI generated text:", res.data);
+      // console.log("AI generated text:", res.data);
       setResponse(res.data)
       setApiTokens(prev => prev - 1)
     } catch (error) {
@@ -192,6 +192,7 @@ export default function PromptPage() {
               <th>Text</th>
               <th>Difficulty</th>
               <th>Theme</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
@@ -226,6 +227,7 @@ export default function PromptPage() {
                   </td>
                 <td>{prompt.difficulty}</td>
                 <td>{prompt.theme}</td>
+                <td>{new Date(prompt.date).toISOString().split('T')[0]}</td>
               </tr>
             ))
           )}

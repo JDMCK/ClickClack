@@ -13,7 +13,7 @@ export async function getPreviousPrompts(req, res) {
 
   try {
     const result = await sql`
-      SELECT prompts.promptid, prompts.text, prompts.difficulty, prompts.theme
+      SELECT prompts.promptid, prompts.text, prompts.difficulty, prompts.theme, tests.date
       FROM prompts
       JOIN tests ON prompts.promptid = tests.promptid
       WHERE tests.userid = ${req.userid}

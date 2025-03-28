@@ -30,8 +30,7 @@ export default function UserProfile() {
       setError(null)
       try {
         const response = await getUserProfile();
-        const trials = response.tokenCount
-        console.log("User has ", trials);
+        const trials = response.tokenCount // trials is just another word for tokens cuz naming...
         setApiTokens(trials)
 
       } catch (error) {
