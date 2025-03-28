@@ -13,8 +13,11 @@ export async function getPreviousPrompts(req, res) {
 
   try {
     const result = await sql`
-      SELECT promptid, text, difficulty, theme FROM prompts
-      WHERE userid = ${req.userid};    
+      SELECT prompts.promptid, prompts.text, prompts.difficulty, prompts.theme
+      FROM prompts
+      JOIN tests ON prompts.promptid = tests.promptid
+      WHERE tests.userid = ${req.userid}
+      ORDER BY tests.date DESC;
     `;
     response.data = result;
     console.log(result)
@@ -98,6 +101,7 @@ export async function getTests(req, res) {
     `;
 
     response.data.tests = tests;
+    console.log(response.data)
     response.message = "Tests retrieved successfully.";
     res.json(response);
   } catch (error) {

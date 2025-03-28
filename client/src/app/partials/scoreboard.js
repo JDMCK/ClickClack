@@ -1,8 +1,6 @@
 import { getTests } from "@/utils/api";
 import { useEffect, useState } from "react"
 
-
-
 export default function Scoreboard() {
   const [scores, setScores] = useState([])
   const [error, setError] = useState(null);
@@ -81,7 +79,9 @@ export default function Scoreboard() {
                     ? `${score.text.slice(0, 50 )}...`
                     : score.text}
                 </td>
-                <td>{new Date(score.date).toLocaleDateString()}</td>
+                {/*TODO: Ignoring the UTC format returned by the DB for demo purposes */}
+                {/* <td>{new Date(score.date).toLocaleDateString()}</td> */}
+                <td>{new Date(score.date).toISOString().split('T')[0]}</td>
                 <td>{score.wpm}</td>
                 <td>{score.awpm}</td>
                 <td>{score.difficulty}</td>
