@@ -184,14 +184,14 @@ button.logout-btn:hover{
 
 
 
-/* ---- Scores */
-.score-table {
+/* ---- Scores and Prompts tables----*/
+.score-table, .previous-prompts {
   width: 60%;
   border-collapse: collapse;
   /* border-radius: 10px; */
   margin: 6px auto;
 }
-.score-table th, .score-table td {
+.score-table th, .score-table td, .previous-prompts th, .previous-prompts td {
   border: 1px solid var(--primary);
   padding: 4px;
   text-align: center;
