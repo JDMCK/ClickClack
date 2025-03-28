@@ -43,6 +43,7 @@ export default function PromptPage() {
 
       const data = await res.json();
       console.log("AI generated text:", data.data);
+      setApiTokens(prev => prev - 1)
       setResponse(data.data);
     } catch (error) {
       setError(error.message);
@@ -95,7 +96,7 @@ export default function PromptPage() {
       }
     }
     fetchTokens();
-  }, [apiTokens])
+  }, [])
 
   useEffect(() => {
     fetchPrevPrompts();
