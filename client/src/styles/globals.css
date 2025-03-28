@@ -202,6 +202,7 @@ button.logout-btn:hover{
 
 .api-token-text{
   background-color: var(--shadow-color);
+  font-size: 1.15rem;
   color: var(--text);
   margin: 8px 40%;
   border-radius: 4px;

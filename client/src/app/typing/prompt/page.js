@@ -108,7 +108,13 @@ export default function PromptPage() {
     <>
       <div className="prompt-container">
         <h1 className="prompt-title">Generate a Prompt</h1>
-        <p className="api-token-text">Prompts available: {apiTokens}</p>
+        <p
+          className="api-token-text"
+          style={{ backgroundColor: apiTokens > 0 ? "var(--shadow-color)" : "var(--primary)" ,
+            color: apiTokens <= 0 ? "var(--background)" : "var(--text)"}}
+        >
+          Prompts available: {apiTokens}
+        </p>
         <form className="prompt-form" onSubmit={handleSubmit}>
           <label>Difficulty</label>
           <select
