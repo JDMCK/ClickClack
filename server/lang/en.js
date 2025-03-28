@@ -3,6 +3,7 @@ const languageKeys = {
   "Welcome": "Welcome to the official API of ClickClack!",
   "SignupUserAlreadyExists": "User already exists.",
   "SignupSuccess": "Successfully signed up user.",
+  "SignupFailure": "Invalid email or password.",
   "BadRequest": "Bad request.",
   "InternalServerError": "Internal server error has occurred.",
   "LoginUserNotFound": "User account doesn't exist.",
@@ -14,7 +15,8 @@ const languageKeys = {
   "UserUnauthorizedNoToken": "User has no authorization token.",
   "UserUnauthorized": "User is unauthorized.",
   "PromptsRetrievalFailure": "Failed to retrieve prompts.",
-}
+  "ClearedCookie": "Cookie successfully cleared.",
+};
 
 export default function lang(key, ...args) {
   if (!(key in languageKeys)) {
