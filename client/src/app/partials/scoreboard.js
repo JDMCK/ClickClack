@@ -70,6 +70,10 @@ export default function Scoreboard() {
             </tr>
           ) : (
             scores.map((score, index) => (
+              /**
+               * This is to a tests where the user used the same propmt as it might result in same keys in `promptid`
+               * Note this isn't best practice.
+               */
               <tr key={score.promptid + index}>
                 <td>{score.promptid}</td>
                 <td>
