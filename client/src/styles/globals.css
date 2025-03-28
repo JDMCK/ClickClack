@@ -187,14 +187,22 @@ button.logout-btn:hover{
 /* ---- Scores and Prompts tables----*/
 .score-table, .previous-prompts {
   width: 60%;
+  border: 1px solid var(--primary);
   border-collapse: collapse;
   /* border-radius: 10px; */
   margin: 6px auto;
 }
 .score-table th, .score-table td, .previous-prompts th, .previous-prompts td {
-  border: 1px solid var(--primary);
   padding: 4px;
+  border: 1px solid var(--primary);
   text-align: center;
+}
+
+.score-table tr:hover, .previous-prompts tr:hover {
+  background-color: var(--shadow-color);
+  color: var(--text);
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 

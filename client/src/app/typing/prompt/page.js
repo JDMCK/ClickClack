@@ -184,13 +184,13 @@ export default function PromptPage() {
           </select>
         </form>
       </div>
-      {/* Previous user propmts */}
+      {/* Previous user prompts */}
       <div className="container">
         <h2>Previous Prompts</h2>
         <table className="previous-prompts ">
           <thead>
             <tr>
-              <th>Prompt ID</th>
+              <th>PromptID</th>
               <th>Text</th>
               <th>Difficulty</th>
               <th>Theme</th>
