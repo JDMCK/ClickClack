@@ -57,7 +57,7 @@ export default function PromptPage() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch("http://localhost:3001/api/v1/users/get-previous-prompts/", {
+      const response = await fetch(`${process.env.API_URL_ROOT}/users/get-previous-prompts/`, {
         credentials: "include",
         method: "GET",
         headers: {

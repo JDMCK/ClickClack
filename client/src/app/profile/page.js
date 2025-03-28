@@ -9,7 +9,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const getProfileData = async () => {  
       try {
-        const response = await fetch("http://localhost:3001/api/v1/users/profile/",
+        const response = await fetch(`${process.env.API_URL_ROOT}/users/profile/`,
           {
             credentials: 'include'
           }

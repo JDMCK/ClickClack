@@ -11,7 +11,7 @@ export default function Scoreboard() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:3001/api/v1/tests/get-tests", {
+      const response = await fetch(`${process.env.API_URL_ROOT}/tests/get-tests`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

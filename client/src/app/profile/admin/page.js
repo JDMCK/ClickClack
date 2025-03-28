@@ -21,7 +21,7 @@ export default function UserProfile() {
         setLoading(true);
         setError(null);
         try{
-            const response = await fetch('http://localhost:3001/api/v1/users/admin/', {
+            const response = await fetch(`${process.env.API_URL_ROOT}/users/admin/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

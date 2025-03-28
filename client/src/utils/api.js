@@ -1,4 +1,4 @@
-const API_ROOT = 'http://localhost:3001/api/v1'
+// const API_ROOT = 'http://localhost:3001/api/v1'
 
 /**
  *  Get the user's basic info like display name and API tokens (trials) the user has
@@ -6,7 +6,7 @@ const API_ROOT = 'http://localhost:3001/api/v1'
  * @returns JSON object containing their data
  */
 export async function getUserProfile(){
-    const response = await fetch("http://localhost:3001/api/v1/users/profile/", {
+    const response = await fetch(`${process.env.API_URL_ROOT}/users/profile/`, {
         credentials: "include",
         method: "GET",
         headers: {
@@ -24,7 +24,7 @@ export async function getUserProfile(){
 
 export async function getTests() {
     // const endpoint = limit > 0 ? `get-tests?limit=${limit}` : "get-tests"
-    const response = await fetch(`http://localhost:3001/api/v1/tests/get-tests/`, {
+    const response = await fetch(`${process.env.API_URL_ROOT}/tests/get-tests/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export async function getTests() {
 
 
 export async function logOutReq(){
-    const response = await fetch(`http://localhost:3001/api/v1/auth/logout/`, {
+    const response = await fetch(`${process.env.API_URL_ROOT}/auth/logout/`, {
         credentials: "include",
         method: "GET",
         headers: {
