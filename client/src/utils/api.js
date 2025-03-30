@@ -6,7 +6,7 @@
  * @returns JSON object containing their data
  */
 export async function getUserProfile(){
-    const response = await fetch(`${process.env.API_URL_ROOT}/users/profile/`, {
+    const response = await fetch(`https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/users/profile/`, {
         credentials: "include",
         method: "GET",
         headers: {
@@ -24,7 +24,7 @@ export async function getUserProfile(){
 
 export async function getTests() {
     // const endpoint = limit > 0 ? `get-tests?limit=${limit}` : "get-tests"
-    const response = await fetch(`${process.env.API_URL_ROOT}/tests/get-tests/`, {
+    const response = await fetch(`https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/tests/get-tests/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export async function getTests() {
 
 
 export async function logOutReq(){
-    const response = await fetch(`${process.env.API_URL_ROOT}/auth/logout/`, {
+    const response = await fetch(`https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/auth/logout/`, {
         credentials: "include",
         method: "GET",
         headers: {
