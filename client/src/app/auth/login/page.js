@@ -3,7 +3,6 @@
 import "../../../styles/login-page.css";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -39,8 +38,7 @@ export default function LoginPage() {
       const data = await response.json();
       console.log("Login successful:", data);
       console.log("User's login info 😩", data.data);
-      const router = useRouter();
-      router.push("/home")
+      window.location("/home")
 
     } catch (error) {
       console.error("Error:", error);
