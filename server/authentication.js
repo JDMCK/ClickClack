@@ -229,7 +229,7 @@ export function adminMiddleware(req, res, next) {
 function setJWTCookie(res, token) {
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.ENVIRONMENT !== "dev",
+    secure: true,
     sameSite: "None", // Required for cross-origin cookies
     partitioned: true,
     maxAge: 86400000 // 24 hours
