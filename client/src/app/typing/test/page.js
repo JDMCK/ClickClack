@@ -2,7 +2,7 @@
 
 import '../../../styles/test-page.css'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 function splitIntoRows(text, length) {
   const words = text.split(' ');
@@ -59,7 +59,7 @@ function Timer({ duration, onFinish, onCancel, onTick }) {
   return <div className='timer'>{secondsLeft}</div>;
 }
 
-export default function TestPage() {
+function TestPageComponent() {
   const router = useRouter();
   const data = useSearchParams().get('data');
   const params = JSON.parse(decodeURIComponent(atob(data)));
@@ -249,4 +249,12 @@ export default function TestPage() {
       }
     </div>
   )
+}
+
+export default function TestPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading test...</div>}>
+      <TestPageComponent />
+    </Suspense>
+  );
 }
