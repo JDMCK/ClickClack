@@ -15,7 +15,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3001/api/v1/auth/me", {
+      const response = await fetch(`${process.env.API_URL_ROOT}/auth/me`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
