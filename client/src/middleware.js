@@ -14,6 +14,7 @@ export async function middleware(request) {
     const token = request.cookies.get('token')?.value;
   
     if (!token) {
+      console.log("NO TOKEN FOUND ❌❌❌ go root")
       url.pathname = '/';
       url.search = '';
       return NextResponse.redirect(url);
