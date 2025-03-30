@@ -228,8 +228,18 @@ export function adminMiddleware(req, res, next) {
 function setJWTCookie(res, token) {
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.ENVIRONMENT !== "dev",
+    secure: true,
     sameSite: "None", // Required for cross-origin cookies
     maxAge: 86400000 // 24 hours
   });
 }
+
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true, // Required for SameSite=None
+  sameSite: "None", // Allows cross-site requests
+  partitioned: true, // Future-proofing for browser changes
+  domain: "your-api-domain.com", // Adjust based on deployment
+  path: "/",
+});
+
