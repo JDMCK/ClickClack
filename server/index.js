@@ -32,7 +32,6 @@ app.use((req, res, next) => { // CORS
   next();
 });
 
-
 // -------------------- Begin endpoints --------------------
 app.get('/', (_, res) => {
   // #swagger.tags = ['Root']
