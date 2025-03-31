@@ -22,13 +22,13 @@ export default function LoginPage() {
     };
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
-        credentials: 'include' // Still needed, ensures browser stores cookie
+        // credentials: 'include'
       });
 
       if (!response.ok) {

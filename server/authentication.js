@@ -245,7 +245,7 @@ function setJWTCookie(res, token) {
   res.cookie('token', token, {
     httpOnly: true,
     secure: process.env.ENVIRONMENT !== 'dev',
-    sameSite: 'Lax',
+    sameSite: 'None',
     path: '/',
     maxAge: 86400000, // milliseconds
   });
