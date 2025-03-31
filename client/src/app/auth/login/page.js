@@ -37,7 +37,7 @@ export default function LoginPage() {
 
       const data = await response.json();
       console.log("Login successful:", data);
-      window.location.href = "/home";
+      window.location.replace("/home");
 
     } catch (error) {
       console.error("Error:", error);

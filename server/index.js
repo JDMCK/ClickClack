@@ -35,7 +35,7 @@ app.use((req, res, next) => { // CORS
     //   "Access-Control-Allow-Credentials": "true", 
     //   "Access-Control-Expose-Headers": "Set-Cookie", 
     // });
-    return res.header(204);
+    return res.header(204).end();
   }
   next();
 });
