@@ -28,13 +28,14 @@ app.use((req, res, next) => { // CORS
 
   // Automatically respond to OPTIONS (preflight) requests
   if (req.method === "OPTIONS") {
-    return res.header(204,{
-      "Access-Control-Allow-Origin": "https://click-clack-lime.vercel.app", 
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", 
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", 
-      "Access-Control-Allow-Credentials": "true", 
-      "Access-Control-Expose-Headers": "Set-Cookie", 
-    });
+    // return res.header(204,{
+    //   "Access-Control-Allow-Origin": "https://click-clack-lime.vercel.app", 
+    //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", 
+    //   "Access-Control-Allow-Headers": "Content-Type, Authorization", 
+    //   "Access-Control-Allow-Credentials": "true", 
+    //   "Access-Control-Expose-Headers": "Set-Cookie", 
+    // });
+    return res.header(204)
   }
 
   next();
