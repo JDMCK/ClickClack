@@ -65,7 +65,6 @@ export async function middleware(request) {
       return NextResponse.redirect(url);
     }
   }
-
   return NextResponse.next();
 }
 
