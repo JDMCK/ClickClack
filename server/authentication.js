@@ -242,19 +242,15 @@ export function adminMiddleware(req, res, next) {
 // }
 function setJWTCookie(res, token) {
   console.log("Setting Token 🪙🪙🪙");
+  console.log(`Prod secure verified? ${process.env.ENVIRONMENT !== 'dev'} cuz the value is ${process.env.ENVIRONMENT}`);
+  console.log(`Secure mode: ${process.env.ENVIRONMENT !== 'dev'}`);
   res.cookie('token', token, {
-    httpOnly: true,
-    secure: process.env.ENVIRONMENT !== 'dev',
-    sameSite: 'None',
-    path: '/',
-    maxAge: 86400000, // milliseconds
+      httpOnly: true,
+      secure: process.env.ENVIRONMENT !== 'dev',
+      sameSite: 'None', //  a must for cross origin cookies
+      path: '/',
+      domain: 'web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com',
+      partitioned: true,
+      maxAge: 86400000, // milliseconds
   });
 }
-
-// function setJWTCookie(res, token) {
-//   console.log("Setting Token 🪙🪙🪙");
-//   const secure = process.env.ENVIRONMENT !== 'dev';
-//   const cookie = `token=${token}; Path=/; HttpOnly; ${secure ? 'Secure; ' : ''}SameSite=None; Max-Age=86400`;
-//   console.log("Cookie:", cookie);
-//   res.setHeader('Set-Cookie', cookie);
-// }

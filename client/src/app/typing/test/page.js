@@ -159,6 +159,7 @@ function TestPageComponent() {
     }
     try {
       const res = await fetch(`https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/tests/save-test/`, {
+      const res = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/tests/save-test/", {
         credentials: "include",
         method: "POST",
         headers: {

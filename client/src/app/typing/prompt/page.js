@@ -27,15 +27,15 @@ export default function PromptPage() {
       theme: theme,
     };
 
-        try {
-            const response = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/ai/generate-test-prompt/", {
-                credentials: "include",
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(requestData),
-            });
+    try {
+      const response = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/ai/generate-test-prompt/", {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to generate prompt.");
@@ -57,7 +57,7 @@ export default function PromptPage() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch(`https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/users/get-previous-prompts/`, {
+      const response = await fetch("https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/v1/users/get-previous-prompts/", {
         credentials: "include",
         method: "GET",
         headers: {
