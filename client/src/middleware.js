@@ -32,7 +32,6 @@ export async function middleware(request) {
   //     return NextResponse.redirect(url);
   //   }
   // }
-
   
   // Profile route protection
   if (url.pathname === '/profile') {
