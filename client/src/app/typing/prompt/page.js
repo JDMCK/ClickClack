@@ -4,7 +4,7 @@ import Scoreboard from "@/app/partials/scoreboard";
 import "../../../styles/prompt-page.css";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getUserProfile } from "@/utils/api";
+import { getUserProfile, SERVER_BASE_URL } from "@/utils/api";
 
 export default function PromptPage() {
   const [difficulty, setDifficulty] = useState("easy");
@@ -28,7 +28,7 @@ export default function PromptPage() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/api/v1/ai/generate-test-prompt/", {
+      const response = await fetch(`${SERVER_BASE_URL}/ai/generate-test-prompt/`, {
         credentials: "include",
         method: "POST",
         headers: {
@@ -57,7 +57,7 @@ export default function PromptPage() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch("http://localhost:3001/api/v1/users/get-previous-prompts/", {
+      const response = await fetch(`${SERVER_BASE_URL}/users/get-previous-prompts/`, {
         credentials: "include",
         method: "GET",
         headers: {

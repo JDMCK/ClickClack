@@ -1,5 +1,6 @@
 "use client";
 
+import { SERVER_BASE_URL } from "@/utils/api";
 import "../../../styles/signup-page.css";
 import Link from "next/link";
 import { useState } from "react";
@@ -24,7 +25,7 @@ export default function SignupPage() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/api/v1/auth/signup/", {
+      const response = await fetch(`${SERVER_BASE_URL}/auth/signup/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

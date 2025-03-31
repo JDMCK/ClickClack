@@ -1,5 +1,6 @@
 'use client';
 
+import { SERVER_BASE_URL } from '@/utils/api';
 import '../../../styles/test-page.css'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -158,7 +159,7 @@ function TestPageComponent() {
       duration: testDurationSeconds
     }
     try {
-      const res = await fetch("http://localhost:3001/api/v1/tests/save-test/", {
+      const res = await fetch(`${SERVER_BASE_URL}/tests/save-test/`, {
         credentials: "include",
         method: "POST",
         headers: {

@@ -1,4 +1,4 @@
-import { getTests } from "@/utils/api";
+import { getTests, SERVER_BASE_URL } from "@/utils/api";
 import { useEffect, useState } from "react"
 
 export default function Scoreboard() {
@@ -11,7 +11,7 @@ export default function Scoreboard() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:3001/api/v1/tests/get-tests", {
+      const response = await fetch(`${SERVER_BASE_URL}/tests/get-tests`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

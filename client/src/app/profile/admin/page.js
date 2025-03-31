@@ -3,7 +3,7 @@
 import Scoreboard from '@/app/partials/scoreboard';
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { getUserProfile } from '../../../utils/api'
+import { getUserProfile, SERVER_BASE_URL } from '../../../utils/api'
 import { logOutReq } from '../../../utils/api';
 
 export default function UserProfile() {
@@ -21,7 +21,7 @@ export default function UserProfile() {
         setLoading(true);
         setError(null);
         try{
-            const response = await fetch('http://localhost:3001/api/v1/users/admin/', {
+            const response = await fetch(`${SERVER_BASE_URL}/users/admin/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

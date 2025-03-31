@@ -27,7 +27,7 @@ app.use((req, res, next) => { // CORS
 
   // Automatically respond to OPTIONS (preflight) requests
   if (req.method === "OPTIONS") {
-      return res.sendStatus(204); // No Content
+    res.header(204);
   }
 
   next();

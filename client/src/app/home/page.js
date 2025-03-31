@@ -1,4 +1,5 @@
 "use client"
+import { SERVER_BASE_URL } from '@/utils/api'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
@@ -15,7 +16,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3001/api/v1/auth/me", {
+      const response = await fetch(`${SERVER_BASE_URL}/auth/me`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

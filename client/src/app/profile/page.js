@@ -1,5 +1,6 @@
 'use client'
 
+import { SERVER_BASE_URL } from "@/utils/api";
 import { useEffect, useState } from "react"
 
 export default function ProfilePage() {
@@ -9,7 +10,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const getProfileData = async () => {  
       try {
-        const response = await fetch("http://localhost:3001/api/v1/users/profile/",
+        const response = await fetch(`${SERVER_BASE_URL}/users/profile/`,
           {
             credentials: 'include'
           }
