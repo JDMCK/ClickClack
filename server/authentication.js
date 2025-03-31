@@ -235,7 +235,7 @@ export function adminMiddleware(req, res, next) {
 //   res.cookie("token", token, {
 //     httpOnly: true,
 //     secure: process.env.ENVIRONMENT !== "dev",
-//     sameSite: "None",   // Required for cross-origin cookies
+//     sameSite: "None",  // Required for cross-origin cookies
 //     // partitioned: true,
 //     maxAge: 86400000 // 24 hours
 //   });
