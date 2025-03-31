@@ -5,21 +5,21 @@ export async function middleware(request) {
   const url = request.nextUrl;
 
   // Catches non logged in people
-  if (
-    url.pathname !== '/' &&
-    !url.pathname.startsWith('/auth') &&
-    !url.pathname.startsWith('/_next') &&
-    !url.pathname.startsWith('/favicon.ico')
-  ) {
-    const token = request.cookies.get('token')?.value;
+  // if (
+  //   url.pathname !== '/' &&
+  //   !url.pathname.startsWith('/auth') &&
+  //   !url.pathname.startsWith('/_next') &&
+  //   !url.pathname.startsWith('/favicon.ico')
+  // ) {
+  //   const token = request.cookies.get('token')?.value;
   
-    if (!token) {
-      console.log("NO TOKEN FOUND ❌❌❌ go root")
-      url.pathname = '/';
-      url.search = '';
-      return NextResponse.redirect(url);
-    }
-  }
+  //   if (!token) {
+  //     console.log("NO TOKEN FOUND ❌❌❌ go root")
+  //     url.pathname = '/';
+  //     url.search = '';
+  //     return NextResponse.redirect(url);
+  //   }
+  // }
   
   // Typing test logic
   if (url.pathname.startsWith('/typing/test')) {
