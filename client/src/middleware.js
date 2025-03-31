@@ -34,33 +34,33 @@ export async function middleware(request) {
   }
 
   // Profile route protection
-  if (url.pathname === '/profile') {
-    const token = request.cookies.get('token')?.value;
-    console.log("Profile middlware token:", token);
+  // if (url.pathname === '/profile') {
+  //   const token = request.cookies.get('token')?.value;
+  //   console.log("Profile middlware token:", token);
 
-    if (!token) {
-      url.pathname = '/404';
-      console.log("Redirecting to 404 after no token found.");
-      return NextResponse.redirect(url);
-    }
+  //   if (!token) {
+  //     url.pathname = '/404';
+  //     console.log("Redirecting to 404 after no token found.");
+  //     return NextResponse.redirect(url);
+  //   }
 
-    try {
-      const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
-      const { payload } = await jwtVerify(token, SECRET_KEY);
+  //   try {
+  //     const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
+  //     const { payload } = await jwtVerify(token, SECRET_KEY);
 
-      if (payload.isAdmin) {
-        url.pathname = '/profile/admin';
-      } else {
-        url.pathname = '/profile/user';
-      }
+  //     if (payload.isAdmin) {
+  //       url.pathname = '/profile/admin';
+  //     } else {
+  //       url.pathname = '/profile/user';
+  //     }
 
-      return NextResponse.redirect(url);
-    } catch (err) {
-      console.error('JWT verification failed:', err);
-      url.pathname = '/404';
-      return NextResponse.redirect(url);
-    }
-  }
+  //     return NextResponse.redirect(url);
+  //   } catch (err) {
+  //     console.error('JWT verification failed:', err);
+  //     url.pathname = '/404';
+  //     return NextResponse.redirect(url);
+  //   }
+  // }
 
   return NextResponse.next();
 }

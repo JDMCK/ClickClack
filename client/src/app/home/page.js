@@ -64,9 +64,9 @@ export default function Home() {
             <h2>{isAdmin ? 'Admin Profile' : 'Profile'}</h2>
             <button onClick={() => {
               if (isLoggedin) {
-                router.push('/profile');
+                router.push(isAdmin ? '/prompt/admin/' : '/prompt/user/');
               } else {
-                router.push('/')
+                router.push('/');
               }
             }}>Go</button>
           </div>
