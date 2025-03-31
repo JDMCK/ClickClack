@@ -43,7 +43,6 @@ export default function Home() {
     checkAdmin();
   }, []);
 
-
   return (
     <>
     <div className='container banner'>
