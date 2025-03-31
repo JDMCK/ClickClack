@@ -33,6 +33,7 @@ export async function middleware(request) {
     }
   }
 
+  
   // Profile route protection
   // if (url.pathname === '/profile') {
   //   const token = request.cookies.get('token')?.value;
