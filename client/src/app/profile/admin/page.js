@@ -129,7 +129,7 @@ export default function UserProfile() {
                     <h4>Control Pannel</h4>
                     <p>Remaining tokens: {apiTokens}</p>
                     <button type="submit" className="logout-btn" disabled={loading} onClick={() =>
-                         {logout()}}>{loading ? "Logging out..." : "Logout"}</button>
+                         {() => logout()}}>{loading ? "Logging out..." : "Logout"}</button>
 
                 </div>
             </div>
