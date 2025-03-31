@@ -192,7 +192,8 @@ export async function isAuthenticated(req, res) {
 export async function logout(req, res) {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: process.env.ENVIRONMENT !== "dev",
+    secure: process.env.ENVIRONMENT !== 'dev',
+    sameSite: 'None'
   });
   res.json({ message: lang("ClearedCookie") });
 }
