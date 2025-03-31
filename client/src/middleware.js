@@ -36,9 +36,11 @@ export async function middleware(request) {
   // Profile route protection
   if (url.pathname === '/profile') {
     const token = request.cookies.get('token')?.value;
+    console.log("Profile middlware token:", token);
 
     if (!token) {
       url.pathname = '/404';
+      console.log("Redirecting to 404 after no token found.");
       return NextResponse.redirect(url);
     }
 
