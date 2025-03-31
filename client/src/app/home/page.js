@@ -48,7 +48,7 @@ export default function Home() {
     <div className='container banner'>
       <h1>Ready for some ducktyping?</h1>
       {/* We should make this be the landing page after M2 submission*/}
-      <p>This really should just be the landing page...</p>
+      {/* <p>This really should just be the landing page...</p> */}
     </div>
       <div className="container">
         {/* <button>Log in</button>
