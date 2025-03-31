@@ -21,7 +21,7 @@ export default function Navbar () {
                 <Link href="/home">ClickClack</Link> 
             </div>
             <div className='nav-btns'>
-                <Link href="/profile">Profile</Link> 
+                {/* <Link href="/profile">Profile</Link> TODO: When fix middlware token bug... */}
                 <button onClick={toggleTheme}>{theme === 'light' ? 'Dark' : 'Light'}</button>
             </div>
         </nav>
