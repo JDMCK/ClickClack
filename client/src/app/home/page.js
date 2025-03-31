@@ -38,6 +38,7 @@ export default function Home() {
       setLoading(false)
     }
   }
+  
 
   useEffect(() => {
     checkAdmin();
