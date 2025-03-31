@@ -1,7 +1,7 @@
 {
     "headers": [
         {
-            "source": "https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/(.*)",
+            "source": "/api/(.*)",
             "headers": [
                 { "key": "Access-Control-Allow-Credentials", "value": "true" },
                 { "key": "Access-Control-Allow-Origin", "value": "https://click-clack-lime.vercel.app" },
