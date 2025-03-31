@@ -231,18 +231,20 @@ export function adminMiddleware(req, res, next) {
   return;
 }
 
-// function setJWTCookie(res, token) {
-//   res.cookie("token", token, {
-//     httpOnly: true,
-//     secure: process.env.ENVIRONMENT !== "dev",
-//     sameSite: "None",  // Required for cross-origin cookies
-//     // partitioned: true,
-//     maxAge: 86400000 // 24 hours
-//   });
-// }
 function setJWTCookie(res, token) {
   console.log("Setting Token 🪙🪙🪙");
-  const secure = process.env.ENVIRONMENT !== 'dev';
-  const cookie = `token=${token}; Path=/; HttpOnly; ${secure ? 'Secure;' : ''} SameSite=None; Max-Age=86400`;
-  res.setHeader('Set-Cookie', cookie);
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.ENVIRONMENT !== 'dev',
+    sameSite: 'None',
+    path: '/',
+    maxAge: 86400000, // milliseconds
+  });
 }
+// function setJWTCookie(res, token) {
+//   console.log("Setting Token 🪙🪙🪙");
+//   const secure = process.env.ENVIRONMENT !== 'dev';
+//   const cookie = `token=${token}; Path=/; HttpOnly; ${secure ? 'Secure; ' : ''}SameSite=None; Max-Age=86400`;
+//   console.log("Cookie:", cookie);
+//   res.setHeader('Set-Cookie', cookie);
+// }
