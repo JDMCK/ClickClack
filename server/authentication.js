@@ -142,7 +142,8 @@ export async function login(req, res) {
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role == "admin" }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
-  setJWTCookie(res, token);
+  const cookie = `token=${token}; HttpOnly; Secure; SameSite=None; Partitioned; Max-Age=86400`;
+  res.setHeader('Set-Cookie', cookie); //TODO:
   
   res.json(response);
 }
