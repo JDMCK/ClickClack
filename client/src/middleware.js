@@ -36,6 +36,9 @@ export async function middleware(request) {
   
   // Profile route protection
   if (url.pathname === '/profile') {
+
+    console.log("request.cookies.get('token'):", request.cookies.get('token'));
+
     const token = request.cookies.get('token')?.value;
     console.log("Profile middlware token:", token);
 
