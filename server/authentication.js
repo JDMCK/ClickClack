@@ -246,4 +246,3 @@ function setJWTCookie(res, token) {
   const cookie = `token=${token}; Path=/; HttpOnly; ${secure ? 'Secure;' : ''} SameSite=None; Max-Age=86400`;
   res.setHeader('Set-Cookie', cookie);
 }
-
