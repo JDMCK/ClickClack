@@ -250,6 +250,7 @@ function setJWTCookie(res, token) {
     maxAge: 86400000, // milliseconds
   });
 }
+
 // function setJWTCookie(res, token) {
 //   console.log("Setting Token 🪙🪙🪙");
 //   const secure = process.env.ENVIRONMENT !== 'dev';
