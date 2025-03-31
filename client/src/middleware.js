@@ -12,6 +12,7 @@ export async function middleware(request) {
     !url.pathname.startsWith('/favicon.ico')
   ) {
     const token = request.cookies.get('token')?.value;
+    console.log(`"Our token in midware 🪙: ${request.cookies.get('token')}\n ${request.cookies.get('token').value}`)
   
     if (!token) {
       url.pathname = '/';
