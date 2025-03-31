@@ -241,7 +241,9 @@ export function adminMiddleware(req, res, next) {
 //   });
 // }
 function setJWTCookie(res, token) {
-  console.log("Setting Token 🪙🪙🪙")
-  const cookie = `token=${token}; HttpOnly; Secure; SameSite=None; Partitioned; Max-Age=86400`;
+  console.log("Setting Token 🪙🪙🪙");
+  const secure = process.env.ENVIRONMENT !== 'dev';
+  const cookie = `token=${token}; Path=/; HttpOnly; ${secure ? 'Secure;' : ''} SameSite=None; Max-Age=86400`;
   res.setHeader('Set-Cookie', cookie);
 }
+
