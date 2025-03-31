@@ -114,6 +114,7 @@ export async function login(req, res) {
     response.result = 1;
     response.error = validation.error.details;
     res.status(400).json(response);
+    console.log("Failed to validate: Code 400")
     return;
   }
 
@@ -127,14 +128,16 @@ export async function login(req, res) {
     response.result = 1;
     response.error = lang("LoginUserNotFound");
     res.status(404).json(response);
+    console.log("Failed to log in User not found 404!")
     return;
   }
-
+  
   const isValidPassword = await bcrypt.compare(req.body.password, user.password_hash);
   if (!isValidPassword){
     response.result = 1;
     response.message = lang("LoginPasswordNotMatched");
     res.status(401).json(response);
+    console.log("Failed to log in password not match 401")
     return;
   }
 
@@ -142,8 +145,7 @@ export async function login(req, res) {
   const SECRET_KEY = process.env.JWT_SECRET_KEY;
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role == "admin" }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
-  const cookie = `token=${token}; HttpOnly; Secure; SameSite=None; Partitioned; Max-Age=86400`;
-  res.setHeader('Set-Cookie', cookie); //TODO:
+  setJWTCookie(res, token)
   
   res.json(response);
 }
@@ -210,6 +212,7 @@ export function middleware(req, res, next) {
     req.isAdmin = tokenData.isAdmin;
     next();
   } catch (error) {
+    console.log("User unauthorized 403 ❌❌")
     res.status(403).json({ message: lang("UserUnauthorized") });
     return;
   }
@@ -236,6 +239,7 @@ export function adminMiddleware(req, res, next) {
 //   });
 // }
 function setJWTCookie(res, token) {
+  console.log("Setting Token 🪙🪙🪙")
   const cookie = `token=${token}; HttpOnly; Secure; SameSite=None; Partitioned; Max-Age=86400`;
   res.setHeader('Set-Cookie', cookie);
 }

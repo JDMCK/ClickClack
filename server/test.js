@@ -20,7 +20,7 @@ export async function getPreviousPrompts(req, res) {
       ORDER BY tests.date DESC;
     `;
     response.data = result;
-    console.log(result)
+    // console.log(result)
   } catch (error) {
     response.result = 1;
     response.message = lang("PromptsRetrievalFailure");
@@ -101,7 +101,7 @@ export async function getTests(req, res) {
     `;
 
     response.data.tests = tests;
-    console.log(response.data)
+    // console.log(response.data)
     response.message = "Tests retrieved successfully.";
     res.json(response);
   } catch (error) {
