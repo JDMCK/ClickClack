@@ -51,6 +51,7 @@ export default function SignupPage() {
     }
   };
 
+  
   return (
     <div className="signup-container">
       <h1 className="signup-title">Sign Up</h1>
