@@ -34,6 +34,7 @@ export default function Home() {
       console.error("Error:", error);
       setError(error.message);
     } finally {
+      console.log("You're at home, Harry! 🏠")
       setLoading(false)
     }
   }
