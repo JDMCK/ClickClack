@@ -17,23 +17,47 @@ export default function SignupPage() {
     password: false,
   });
 
+  const handleDisplayNameChange = (e) => {
+    setDisplayName(e.target.value);
+    if (fieldErrors.display_name) {
+      setFieldErrors((prev) => ({ ...prev, display_name: false }));
+      setError(null);
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (fieldErrors.email) {
+      setFieldErrors((prev) => ({ ...prev, email: false }));
+      setError(null);
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (fieldErrors.password) {
+      setFieldErrors((prev) => ({ ...prev, password: false }));
+      setError(null);
+    }
+  };
+
 
   const validateInput = () => {
     let hasError = false;
     let errorMessage = "";
-  
+
     const trimmedEmail = email.trim();
     const trimmedDisplayName = display_name.trim();
-  
+
     // Reset field errors
     setFieldErrors({ display_name: false, email: false, password: false });
-  
+
     if (!trimmedDisplayName) {
       hasError = true;
       errorMessage = "Display name is required.";
       setFieldErrors((prev) => ({ ...prev, display_name: true }));
     }
-  
+
     if (!trimmedEmail) {
       hasError = true;
       errorMessage = errorMessage || "Email is required.";
@@ -46,7 +70,7 @@ export default function SignupPage() {
         setFieldErrors((prev) => ({ ...prev, email: true }));
       }
     }
-  
+
     if (!password) {
       hasError = true;
       errorMessage = errorMessage || "Password is required.";
@@ -59,11 +83,11 @@ export default function SignupPage() {
         setFieldErrors((prev) => ({ ...prev, password: true }));
       }
     }
-  
+
     if (hasError) {
       setError(errorMessage);
     }
-  
+
     return !hasError;
   };
 
@@ -121,21 +145,21 @@ export default function SignupPage() {
           placeholder="Display Name"
           className={`signup-input ${fieldErrors.display_name ? "input-error" : ""}`}
           value={display_name}
-          onChange={(e) => setDisplayName(e.target.value)}
+          onChange={handleDisplayNameChange}
         />
         <input
           type="email"
           placeholder="Email"
           className={`signup-input ${fieldErrors.email ? "input-error" : ""}`}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
         />
         <input
           type="password"
           placeholder="Password"
           className={`signup-input ${fieldErrors.password ? "input-error" : ""}`}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handlePasswordChange}
         />
 
         <button type="submit" className="signup-button" disabled={loading}>{loading ? "Signing up..." : "Sign Up"} </button>
