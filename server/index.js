@@ -113,10 +113,30 @@ app.get(`${API_PREFIX}/users/admin/`, auth.middleware, auth.adminMiddleware, asy
   }
 });
 
+app.put(`${API_PREFIX}/users/boost-tokens/`, auth.middleware, auth.adminMiddleware, async (req, res) => {
+  // #swagger.tags = ['Users']
+  // #swagger.description = 'Boosts the remaining AI tokens of a given user back to original amount (20).'
+  try {
+    await users.boostTokens(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
+});
+
 // -------------------- Test endpoints --------------------
 app.post(`${API_PREFIX}/tests/save-test/`, auth.middleware, async (req, res) => {
   // #swagger.tags = ['Tests']
   // #swagger.description = 'Saves a completed typing test for the authenticated user, including WPM, AWPM, and accuracy calculations.'
+  try {
+    await test.saveTest(req, res);
+  } catch (error) {
+    serverError(res, error);
+  }
+});
+
+app.delete(`${API_PREFIX}/tests/remove-prompt/`, auth.middleware, auth.adminMiddleware, async (req, res) => {
+  // #swagger.tags = ['Tests']
+  // #swagger.description = 'Boosts the remaining AI tokens of a given user back to original amount (20).'
   try {
     await test.saveTest(req, res);
   } catch (error) {
@@ -150,5 +170,6 @@ app.listen(port, () => {
 });
 
 function serverError(res, error) {
+  console.log(error);
   res.status(500).json({ message: lang("InternalServerError"), error });
 }
