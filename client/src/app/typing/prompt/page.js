@@ -216,7 +216,7 @@ export default function PromptPage() {
         <table className="previous-prompts">
           <thead>
             <tr>
-              <th>PromptID</th>
+              <th>PromptId</th>
               <th>Text</th>
               <th>Difficulty</th>
               <th>Theme</th>
@@ -238,13 +238,13 @@ export default function PromptPage() {
                 <td colSpan="6">No prompts available...</td>
               </tr>
             ) : (
-              prevPrompts.map((prompt, index) => (
+              prevPrompts.map((prompt) => (
                 /**
                  * This is for cases when the user used the same prompt as it might result in same keys in `promptid`
                  * Note this isn't best practice!
                  */
                 <tr
-                  key={prompt.promptid + index}
+                  key={prompt.promptid}
                   onClick={() => {
                     setResponse(prompt);
                   }}

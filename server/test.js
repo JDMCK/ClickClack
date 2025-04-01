@@ -13,11 +13,20 @@ export async function getPreviousPrompts(req, res) {
 
   try {
     const result = await sql`
-      SELECT prompts.promptid, prompts.text, prompts.difficulty, prompts.theme, tests.date
-      FROM prompts
-      JOIN tests ON prompts.promptid = tests.promptid
-      WHERE tests.userid = ${req.userid}
-      ORDER BY tests.date DESC;
+      SELECT *
+      FROM (
+        SELECT DISTINCT ON (prompts.promptid)
+          prompts.promptid,
+          prompts.text,
+          prompts.difficulty,
+          prompts.theme,
+          tests.date
+        FROM prompts
+        JOIN tests ON prompts.promptid = tests.promptid
+        WHERE tests.userid = ${req.userid}
+        ORDER BY prompts.promptid, tests.date DESC
+      ) AS latest_prompts
+      ORDER BY date DESC, promptid DESC;
     `;
     response.data = result;
   } catch (error) {
@@ -127,6 +136,7 @@ export async function removePrompt(req, res) {
     `;
     response.message = "Prompt successfully removed.";
   } catch (error) {
+    console.log(error);
     response.result = 1;
     response.message = "Failed to remove prompt.";
     response.error = error;
