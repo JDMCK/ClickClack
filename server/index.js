@@ -16,7 +16,15 @@ const port = 3001;
 const API_PREFIX = "/api/v1";
 
 const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(
+  '/doc',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      url: '/click-clack/api/swagger-output.json', // or wherever your spec lives
+    },
+  })
+);
 
 // -------------------- Middleware --------------------
 app.use(bodyParser.json()) // for parsing application/json
