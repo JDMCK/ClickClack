@@ -1,4 +1,5 @@
 "use client"
+import { SERVER_BASE_URL } from '@/utils/api'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 

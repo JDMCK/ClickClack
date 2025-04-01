@@ -1,5 +1,6 @@
 'use client'
 
+import { SERVER_BASE_URL } from "@/utils/api";
 import { useEffect, useState } from "react"
 
 export default function ProfilePage() {

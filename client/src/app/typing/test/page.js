@@ -1,5 +1,6 @@
 'use client';
 
+import { SERVER_BASE_URL } from '@/utils/api';
 import '../../../styles/test-page.css'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';

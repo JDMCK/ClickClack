@@ -1,4 +1,4 @@
-import { getTests } from "@/utils/api";
+import { getTests, SERVER_BASE_URL } from "@/utils/api";
 import { useEffect, useState } from "react"
 
 export default function Scoreboard() {
