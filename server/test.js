@@ -24,7 +24,7 @@ export async function getPreviousPrompts(req, res) {
         FROM prompts
         JOIN tests ON prompts.promptid = tests.promptid
         WHERE tests.userid = ${req.userid}
-        ORDER BY prompts.promptid, tests.date DESC
+        ORDER BY prompts.promptid, tests.date DESC, prompts.promptid DESC
       ) AS latest_prompts
       ORDER BY date DESC, promptid DESC;
     `;
