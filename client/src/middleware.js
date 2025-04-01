@@ -4,6 +4,8 @@ import { jwtVerify } from 'jose';
 export async function middleware(request) {
   const url = request.nextUrl;
   const token = request.cookies.get('token')?.value;
+  console.log(`Middleware Request: ${request}`);
+  console.log(`Middleware req Token: ${token}`);
 
   // Allow auth routes and static assets (/_next, /favicon.ico) without token
   if (
