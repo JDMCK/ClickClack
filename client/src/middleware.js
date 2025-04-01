@@ -5,7 +5,9 @@ export async function middleware(request) {
   const url = request.nextUrl;
   const token = request.cookies.get('token')?.value;
   console.log(`Middleware Request: ${request}`);
-  console.log(`Middleware req Token: ${token}`);
+  console.log(`Middleware Request.cookies: ${request.cookies}`);
+  console.log(`Middleware req Token: ${request.cookies.get('token')}`);
+  console.log(`Middleware req Token value: ${token}`);
 
   // Allow auth routes and static assets (/_next, /favicon.ico) without token
   if (
