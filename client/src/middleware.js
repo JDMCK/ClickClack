@@ -12,11 +12,8 @@ export async function middleware(request) {
     !url.pathname.startsWith('/favicon.ico')
   ) {
     const token = request.cookies.get('token')?.value;
-
-    console.log(token);
-    
+  
     if (!token) {
-      console.log("NO TOKEN FOUND ❌❌❌ go root")
       url.pathname = '/';
       url.search = '';
       return NextResponse.redirect(url);
@@ -32,18 +29,13 @@ export async function middleware(request) {
       return NextResponse.redirect(url);
     }
   }
-  
+
   // Profile route protection
   if (url.pathname === '/profile') {
-
-    console.log("request.cookies.get('token'):", request.cookies.get('token'));
-
     const token = request.cookies.get('token')?.value;
-    console.log("Profile middlware token:", token);
 
     if (!token) {
-      url.pathname = '/404';
-      console.log("Redirecting to 404 after no token found.");
+      url.pathname = '/403';
       return NextResponse.redirect(url);
     }
 
@@ -60,13 +52,14 @@ export async function middleware(request) {
       return NextResponse.redirect(url);
     } catch (err) {
       console.error('JWT verification failed:', err);
-      url.pathname = '/404';
+      url.pathname = '/403';
       return NextResponse.redirect(url);
     }
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!_next|favicon.ico).*)'],
+  matcher: ['/:path*'],
 };
