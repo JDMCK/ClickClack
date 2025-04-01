@@ -35,7 +35,7 @@ export async function middleware(request) {
         return NextResponse.redirect(url);
       }
     } catch (error) {
-      console.error('Error validating user:', error);
+      console.error('Client Middleware error validating user:', error);
       url.pathname = '/';
       return NextResponse.redirect(url); // Redirect to home on error
     }
