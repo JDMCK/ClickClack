@@ -146,6 +146,8 @@ export async function login(req, res) {
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role == "admin" }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
   setJWTCookie(res, token)
+  // response.data.token = token;
+  response.message = lang("LoginSuccessWithToken");
   
   res.json(response);
 }
@@ -249,7 +251,7 @@ function setJWTCookie(res, token) {
       secure: process.env.ENVIRONMENT !== 'dev',
       sameSite: 'None', //  a must for cross origin cookies
       path: '/',
-      domain: 'web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com',
+      // domain: 'web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com',
       partitioned: true,
       maxAge: 86400000, // milliseconds
   });

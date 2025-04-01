@@ -8,6 +8,7 @@ import lang from './lang/en.js';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
+import cors from 'cors';
 
 const app = express();
 const port = 3001;
@@ -19,26 +20,26 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // -------------------- Middleware --------------------
 app.use(bodyParser.json()) // for parsing application/json
 app.use(cookieParser()); // enables reading cookies from `req.cookies`
-app.use((req, res, next) => { // CORS
-  res.header("Access-Control-Allow-Origin", "https://click-clack-lime.vercel.app"); // Allow all origins (*), change for production
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
-  // res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allowed headers
-  res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies, Authorization header)
-  res.header("Access-Control-Expose-Headers", "Set-Cookie");
+const acceptableOrigins = [
+  "https://click-clack-lime.vercel.app",
+  "https://clickclack.aabuharrus.dev/",
+  "http://localhost:3000" // For local development
+];
 
-  // Automatically respond to OPTIONS (preflight) requests
-  if (req.method === "OPTIONS") {
-    res.header(204,{
-      "Access-Control-Allow-Origin": "https://click-clack-lime.vercel.app", 
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", 
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", 
-      "Access-Control-Allow-Credentials": "true", 
-      "Access-Control-Expose-Headers": "Set-Cookie", 
-    });
-    // res.header(204).end();
-  }
-  next();
-});
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || acceptableOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET, POST, PUT, DELETE, OPTIONS", // Allowed methods
+  allowedHeaders: "Content-Type, Authorization", // Allowed headers
+  credentials: true, // Allow credentials (cookies, Authorization header)
+};
+
+app.use(cors(corsOptions));
 
 // -------------------- Begin endpoints --------------------
 app.get('/', (_, res) => {
