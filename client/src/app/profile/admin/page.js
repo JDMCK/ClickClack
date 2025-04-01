@@ -42,10 +42,10 @@ export default function UserProfile() {
         }
     }
 
-    const boostUserTokens = async (userId) => {
+    const boostUserTokens = async (userid) => {
         setLoading(true)
         setError(null)
-        console.log("userid: ", userId)
+        console.log("userid: ", userid)
         try {
             const response = await fetch(`${SERVER_BASE_URL}/users/boost-tokens`, {
                 method: "PUT",
@@ -53,7 +53,7 @@ export default function UserProfile() {
                     "Content-Type": "application/json",
                 },
                 credentials: 'include',
-                body: JSON.stringify({ userId })
+                body: JSON.stringify({ userid })
             });
             if (!response.ok) {
                 throw new Error("Failed to fectch users' data for admin page!");
@@ -64,7 +64,12 @@ export default function UserProfile() {
             console.log("Error boosting: ", error)
             setError(error)
         } finally {
-            setLoading(false)
+            setLoading(false);
+            setUsersData(prev =>
+                prev.map(user =>
+                  user.userid === userid ? { ...user, tokenCount: 20 } : user
+                )
+              );
         }
     }
 
