@@ -36,16 +36,14 @@ export default function LoginPage() {
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
-      console.log("User's login info 😩", data.data);
-      
-      // window.location.replace("/home")
+      console.log("User's login info 😩", data);
+      console.log("Redirecting to '/home'...");
+      window.location.replace("/home")
       
     } catch (error) {
       console.error("Error:", error);
       setError(error.message);
     } finally {
-      console.log("paused reroute to /home....");
       setLoading(false);
     }
   };
