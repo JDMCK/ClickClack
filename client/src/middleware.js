@@ -26,7 +26,7 @@ export async function middleware(request) {
 
       // Redirect based on user role
       if (url.pathname.startsWith('/profile/admin') && !authRes.data.isAdmin) {
-        url.pathname = '/403'; // Forbidden page for non-admins
+        url.pathname = 'error/forbidden/'; // Forbidden page for non-admins
         return NextResponse.redirect(url);
       }
 
