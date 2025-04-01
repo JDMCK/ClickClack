@@ -5,20 +5,36 @@ export async function middleware(request) {
   const url = request.nextUrl;
   const token = request.cookies.get('token')?.value;
 
-  // Allow auth routes and static assets (/_next, /favicon.ico) without token
-  if (
-    url.pathname.startsWith('/auth') ||
-    url.pathname.startsWith('/_next') ||
-    url.pathname.startsWith('/favicon.ico')
-  ) {
-    return NextResponse.next();
-  }
-
-  // Redirect to home if no token and not already on home page
+  // if no token, redirect to homepage
   if (!token && url.pathname !== '/') {
     url.pathname = '/';
     url.search = '';
     return NextResponse.redirect(url);
+  }
+  
+
+  // Catches non logged in people
+  if (
+    url.pathname !== '/' &&
+    !url.pathname.startsWith('/auth') &&
+    !url.pathname.startsWith('/_next') &&
+    !url.pathname.startsWith('/favicon.ico')
+  ) {
+    if (!token) {
+      url.pathname = '/';
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
+  }
+  
+  // Typing test logic
+  if (url.pathname.startsWith('/typing/test')) {
+    const hasDataParam = url.searchParams.has('data');
+    if (!hasDataParam) {
+      url.pathname = '/typing/prompt';
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
   }
 
   // Profile route protection
@@ -38,7 +54,7 @@ export async function middleware(request) {
         url.pathname = '/profile/user';
       }
 
-      return NextResponse.redirect(NextResponse.rewrite(url));
+      return NextResponse.redirect(url);
     } catch (err) {
       console.error('JWT verification failed:', err);
       url.pathname = '/403';
