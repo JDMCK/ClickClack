@@ -11,7 +11,7 @@ export default function Scoreboard() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://click-clack-vercel-server.vercel.app/api/v1/tests/get-tests", {
+      const response = await fetch("https://api.clickclack.aabuharrus.dev/api/v1/tests/get-tests", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

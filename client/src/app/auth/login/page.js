@@ -22,7 +22,7 @@ export default function LoginPage() {
     };
 
     try {
-      const response = await fetch("https://click-clack-vercel-server.vercel.app/api/v1/auth/login", {
+      const response = await fetch("https://api.clickclack.aabuharrus.dev/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

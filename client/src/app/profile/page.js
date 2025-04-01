@@ -9,7 +9,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const getProfileData = async () => {  
       try {
-        const response = await fetch("https://click-clack-vercel-server.vercel.app/api/v1/users/profile/",
+        const response = await fetch("https://api.clickclack.aabuharrus.dev/api/v1/users/profile/",
           {
             credentials: 'include'
           }

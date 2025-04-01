@@ -28,7 +28,7 @@ export default function PromptPage() {
     };
 
     try {
-      const response = await fetch("https://click-clack-vercel-server.vercel.app/api/v1/ai/generate-test-prompt/", {
+      const response = await fetch("https://api.clickclack.aabuharrus.dev/api/v1/ai/generate-test-prompt/", {
         credentials: "include",
         method: "POST",
         headers: {
@@ -57,7 +57,7 @@ export default function PromptPage() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch("https://click-clack-vercel-server.vercel.app/api/v1/users/get-previous-prompts/", {
+      const response = await fetch("https://api.clickclack.aabuharrus.dev/api/v1/users/get-previous-prompts/", {
         credentials: "include",
         method: "GET",
         headers: {

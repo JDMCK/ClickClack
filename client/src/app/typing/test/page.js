@@ -158,7 +158,7 @@ function TestPageComponent() {
       duration: testDurationSeconds
     }
     try {
-      const res = await fetch(`https://click-clack-vercel-server.vercel.app/api/v1/tests/save-test/`, {
+      const res = await fetch(`https://api.clickclack.aabuharrus.dev/api/v1/tests/save-test/`, {
         credentials: "include",
         method: "POST",
         headers: {
