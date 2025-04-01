@@ -20,7 +20,6 @@ export async function getPreviousPrompts(req, res) {
       ORDER BY tests.date DESC;
     `;
     response.data = result;
-    // console.log(result)
   } catch (error) {
     response.result = 1;
     response.message = lang("PromptsRetrievalFailure");
@@ -101,7 +100,6 @@ export async function getTests(req, res) {
     `;
 
     response.data.tests = tests;
-    console.log(response.data)
     response.message = "Tests retrieved successfully.";
     res.json(response);
   } catch (error) {
@@ -114,5 +112,26 @@ export async function getTests(req, res) {
 }
 
 export async function removePrompt(req, res) {
+  const response = {
+    result: 0,
+    data: {},
+    message: '',
+    error: '',
+    received: ''
+  };
 
+  try {
+    await sql`
+      DELETE FROM prompts
+      WHERE promptid = ${req.body.promptid} AND userid = ${req.userid};
+    `;
+    response.message = "Prompt successfully removed.";
+  } catch (error) {
+    response.result = 1;
+    response.message = "Failed to remove prompt.";
+    response.error = error;
+    res.status(500).json(response);
+    return
+  }
+  res.json(response);
 }
