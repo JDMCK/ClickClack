@@ -79,7 +79,7 @@ export default function PromptPage() {
     }
   }
 
-  const deletePrompt = async (propmtid) => {
+  const deletePrompt = async (promptid) => {
     setLoading(true);
     setError(null);
     try {
@@ -89,7 +89,7 @@ export default function PromptPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ propmtid })
+        body: JSON.stringify({ promptid })
       });
 
       if (!response.ok) {
@@ -98,7 +98,7 @@ export default function PromptPage() {
 
       console.log("Received: ", response.message)
 
-      setPrevPrompts((prev) => prev.filter((prompt) => prompt.promptid !== propmtid));
+      setPrevPrompts((prev) => prev.filter((prompt) => prompt.promptid !== promptid));
     } catch (error) {
       console.error("Error deleting prompt:", error);
       setError(error.message);
