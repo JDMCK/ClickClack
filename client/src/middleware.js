@@ -4,9 +4,7 @@ import { jwtVerify } from 'jose';
 export async function middleware(request) {
   const url = request.nextUrl;
   const token = request.cookies.get('token')?.value;
-  console.log(`Middleware Request: ${request}`);
-  console.log(`Middleware Request.cookies: ${request.cookies}`);
-  console.log(`Middleware req Token: ${request.cookies.get('token')}`);
+  // console.log(`Middleware Request.cookies: ${request.cookies}`);
   console.log(`Middleware req Token value: ${token}`);
 
   // Allow auth routes and static assets (/_next, /favicon.ico) without token
@@ -42,7 +40,8 @@ export async function middleware(request) {
         url.pathname = '/profile/user';
       }
 
-      return NextResponse.redirect(NextResponse.rewrite(url));
+      // return NextResponse.redirect(NextResponse.rewrite(url));
+      return NextResponse.redirect(url);
     } catch (err) {
       console.error('JWT verification failed:', err);
       url.pathname = 'error/forbidden/';
