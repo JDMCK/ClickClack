@@ -134,11 +134,11 @@ app.post(`${API_PREFIX}/tests/save-test/`, auth.middleware, async (req, res) => 
   }
 });
 
-app.delete(`${API_PREFIX}/tests/remove-prompt/`, auth.middleware, auth.adminMiddleware, async (req, res) => {
+app.delete(`${API_PREFIX}/tests/remove-prompt/`, auth.middleware, async (req, res) => {
   // #swagger.tags = ['Tests']
   // #swagger.description = 'Boosts the remaining AI tokens of a given user back to original amount (20).'
   try {
-    await test.saveTest(req, res);
+    await test.removePrompt(req, res);
   } catch (error) {
     serverError(res, error);
   }
