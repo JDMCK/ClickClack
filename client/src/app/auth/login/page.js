@@ -32,7 +32,7 @@ export default function LoginPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to sign up.");
+        throw new Error("Failed to log in.");
       }
 
       const data = await response.json();
