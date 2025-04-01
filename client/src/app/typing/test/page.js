@@ -174,7 +174,7 @@ function TestPageComponent() {
   } catch (error) {
     console.log(error.message);
   } finally {
-    router.push('/profile/');
+    router.push('/profile');
   }
   }, [prompt, promptid, router, testDurationSeconds]);
   
