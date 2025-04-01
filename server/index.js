@@ -1,5 +1,6 @@
 import express from 'express'
 import * as auth from './authentication.js'
+import * as endpoints from './endpoints.js'
 import bodyParser from 'body-parser'
 import * as ai from './ai.js';
 import * as test from './test.js';
@@ -8,6 +9,7 @@ import lang from './lang/en.js';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
+import sql from './db.js';
 
 const app = express();
 const port = 3001;
@@ -33,6 +35,36 @@ app.use((req, res, next) => { // CORS
   next();
 });
 
+// Track usage among endpoints
+app.use(async (req, _, next) => {
+  const method = req.method;
+  const url = req.path;
+
+  const routeExists = app._router.stack.some((layer) => {
+    if (!layer.route) return false;
+    const normalize = (path) => path.replace(/\/+$/, '');
+
+    return (
+      normalize(layer.route.path) === normalize(url) &&
+      layer.route.methods[method.toLowerCase()]
+    );
+  });
+
+  if (routeExists) {
+    try {
+      await sql`
+        INSERT INTO usage (method, endpoint, requests)
+        VALUES (${method}, ${url}, 1)
+        ON CONFLICT (method, endpoint)
+        DO UPDATE SET requests = usage.requests + 1;
+      `;
+    } catch (err) {
+      console.error("Error inserting into usage table:", err);
+    }
+  }
+
+  next();
+});
 
 // -------------------- Begin endpoints --------------------
 app.get('/', (_, res) => {
@@ -40,6 +72,16 @@ app.get('/', (_, res) => {
   // #swagger.description = 'Returns a welcome message for the ClickClack API server.'
   res.send('This is the root of ClickClack\'s API server.')
 })
+
+app.get(`${API_PREFIX}/endpoints/usage/`, auth.middleware, auth.adminMiddleware, async (req, res) => {
+  // #swagger.tags = ['Endpoints']
+  // #swagger.description = 'Reveals usage information about API endpoints.'
+  try {
+    await endpoints.usage(req, res);
+  } catch (error) {
+    serverError(res, error)
+  }
+});
 
 // -------------------- Auth endpoints --------------------
 app.post(`${API_PREFIX}/auth/signup/`, async (req, res) => {

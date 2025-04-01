@@ -12,6 +12,7 @@ export default function UserProfile() {
     const [displayName, setDisplayName] = useState(null)
     const [apiTokens, setApiTokens] = useState(0)
     const [usersData, setUsersData] = useState([]);
+    const [endpointUsageData, setEndpointUsageData] = useState([]);
     const [loading, setLoading] = useState(false);
 
     /**
@@ -42,12 +43,40 @@ export default function UserProfile() {
         }
     }
 
+    /**
+     * Fetch the endpoint usage data for the Admin dash board
+     */
+    const fetchEndpointUsageData = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(`${SERVER_BASE_URL}/endpoints/usage/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fectch endpoint usage data for admin page!");
+            }
+            const res = await response.json();
+            setEndpointUsageData(res.data)
+        } catch (error) {
+            console.log("Error fetching data: ", error);
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const boostUserTokens = async (userid) => {
         setLoading(true)
         setError(null)
         console.log("userid: ", userid)
         try {
-            const response = await fetch(`${SERVER_BASE_URL}/users/boost-tokens`, {
+            const response = await fetch(`${SERVER_BASE_URL}/users/boost-tokens/`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -92,6 +121,7 @@ export default function UserProfile() {
         }
         fetchProfile();
         fetchUsersData();
+        fetchEndpointUsageData();
     }, [])
 
     const logout = async () => {
@@ -112,6 +142,44 @@ export default function UserProfile() {
         <>
             <div className="container">
                 <h1><em>You&apos;re an Admin Duck, {displayName}!</em></h1>
+
+                <h2>API Usage</h2>
+                <div className='content-box'>
+                    <table className="user-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Requests</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {loading ? (
+                                <tr>
+                                    <td colSpan="3">Loading...</td>
+                                </tr>
+                            ) : error ? (
+                                <tr>
+                                    <td colSpan="3">Error loading data</td>
+                                </tr>
+                            ) : (
+                                endpointUsageData && endpointUsageData.length > 0 ? (
+                                    endpointUsageData.map((endpoint, index) => (
+                                        <tr key={index}>
+                                            <td>{endpoint.method}</td>
+                                            <td>{endpoint.endpoint}</td>
+                                            <td>{endpoint.requests}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="4">No data available</td>
+                                    </tr>
+                                )
+                            )}
+                        </tbody>
+                    </table>
+                </div>
 
                 <h2>All Ducklings (users)</h2>
                 <div className='content-box'>
