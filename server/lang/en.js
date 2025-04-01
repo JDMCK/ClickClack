@@ -16,6 +16,8 @@ const languageKeys = {
   "UserUnauthorized": "User is unauthorized.",
   "PromptsRetrievalFailure": "Failed to retrieve prompts.",
   "ClearedCookie": "Cookie successfully cleared.",
+  "BoostFailed": "Failed to boost user AI tokens.",
+  "BoostSucceeded": "Successfully boosted user AI tokens.",
 };
 
 export default function lang(key, ...args) {
