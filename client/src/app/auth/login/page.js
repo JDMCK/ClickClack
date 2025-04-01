@@ -28,7 +28,7 @@ export default function LoginPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
-        // credentials: 'include'
+        credentials: 'include'
       });
 
       if (!response.ok) {
