@@ -37,13 +37,14 @@ export default function LoginPage() {
 
       const data = await response.json();
       console.log("User's login info 😩", data);
-      console.log("Redirecting to '/home'...");
-      window.location.replace("/home")
+      // console.log("Redirecting to '/home'...");
+      // window.location.replace("/home")
       
     } catch (error) {
       console.error("Error:", error);
       setError(error.message);
     } finally {
+      console.log("Paused redirecting to '/home'..")
       setLoading(false);
     }
   };
