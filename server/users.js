@@ -45,7 +45,7 @@ export async function getAdmin(req, res) {
   try {
     const result = await sql`
       SELECT 
-        userid,
+        users.userid,
         display_name AS "displayName", 
         remaining_tokens AS "tokenCount", 
         role

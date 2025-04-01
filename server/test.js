@@ -101,7 +101,7 @@ export async function getTests(req, res) {
     `;
 
     response.data.tests = tests;
-    // console.log(response.data)
+    console.log(response.data)
     response.message = "Tests retrieved successfully.";
     res.json(response);
   } catch (error) {
@@ -111,4 +111,8 @@ export async function getTests(req, res) {
     response.error = error;
     res.status(500).json(response);
   }
+}
+
+export async function removePrompt(req, res) {
+
 }
