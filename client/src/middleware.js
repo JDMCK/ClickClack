@@ -24,7 +24,7 @@ export async function middleware(request) {
   }
 
   // Profile route protection
-  if (url.pathname.startsWith('/profile')) {
+  if (url.pathname === '/profile') {
     if (!token) {
       url.pathname = 'error/forbidden/';
       return NextResponse.redirect(url);
