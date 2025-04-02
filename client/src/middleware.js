@@ -23,6 +23,29 @@ export async function middleware(request) {
     return NextResponse.redirect(url);
   }
 
+  if (url.pathname === '/profile/admin') {
+    if (!token) {
+      url.pathname = 'error/forbidden/';
+      return NextResponse.redirect(url);
+    }
+
+    try {
+      const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
+      const { payload } = await jwtVerify(token, SECRET_KEY);
+
+      if (!payload.isAdmin) {
+        url.pathname = '/auth/login';
+        return NextResponse.redirect(url);
+      }
+
+      // return NextResponse.redirect(NextResponse.rewrite(url));
+    } catch (err) {
+      console.error('JWT verification failed:', err);
+      url.pathname = 'error/forbidden/';
+      return NextResponse.redirect(url);
+    }
+  }
+
   // Profile route protection
   if (url.pathname === '/profile') {
     if (!token) {
