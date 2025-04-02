@@ -4,6 +4,8 @@ import Scoreboard from '@/app/partials/scoreboard';
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { getUserProfile } from '../../../utils/api'
+import { logOutReq } from '../../../utils/api';
+
 
 export default function UserProfile() {
   const router = useRouter()
