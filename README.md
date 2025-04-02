@@ -1,5 +1,9 @@
 # ClickClack - typing test
 
+![image](https://github.com/user-attachments/assets/e2a7ceb1-091a-4a08-ae34-2b8a4f7b863c)
+![image](https://github.com/user-attachments/assets/16287ad8-a64b-4f15-b843-04885185249c)
+
+
 #### Members
 - Jesse Mckenzie
 - Alex Deschenes
